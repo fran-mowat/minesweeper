@@ -2,9 +2,18 @@ html{
     font-family: 'Courier New', Courier, monospace;
 }
 
-body div{
-    width: fit-content;
-    margin: auto;
+h1{
+    text-align: center;
+}
+
+.main{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.left, .right{
+    width: 20vw;
 }
 
 table, td{
