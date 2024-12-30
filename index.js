@@ -127,8 +127,11 @@ const revealCell = (x, y) => {
         return;
     }
 
-    cellClicked.style.backgroundColor = "green";
     cellClicked.clicked = true;
+
+    const numbers = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight"];
+    cellClicked.classList += numbers[cellClicked.count];
+    console.log(cellClicked.classList);
 
     if (cellClicked.bombFlag) {
         gameOver(cellClicked);
