@@ -186,6 +186,18 @@ const gameOver = (cellClicked) => {
             cell.replaceWith(cell.cloneNode(true)); //removing all event listeners 
         }
     }
+
+    const gameOver = document.getElementsByClassName("game-over")[0];
+    gameOver.style.display = "block";
+
+    const playAgain = document.getElementsByTagName("input")[0];
+    playAgain.addEventListener("click", resetGame);
+}
+
+const resetGame = () => {
+    const table = document.getElementsByTagName("table")[0];
+    table.innerHTML = "";
+    createGrid();
 }
 
 createGrid();
