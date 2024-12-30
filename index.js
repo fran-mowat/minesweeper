@@ -41,30 +41,32 @@ const setBombCounts = () => {
             const cell = row.getElementsByTagName("td")[j];
 
             if (cell.bombFlag){
+                //checking cells above 
                 if (!(i === 0)){
                     const cellAbove = rows[i - 1].getElementsByTagName("td")[j];
                     if (! cellAbove.bombFlag){
                         cellAbove.count += 1;
                         cellAbove.innerHTML = cellAbove.count;
                     }
-                }
 
-                if ((!(i === 0)) && !(j === 0)){
-                    const cellAboveLeft = rows[i - 1].getElementsByTagName("td")[j - 1];
-                    if (! cellAboveLeft.bombFlag){
-                        cellAboveLeft.count += 1;
-                        cellAboveLeft.innerHTML = cellAboveLeft.count;
+                    if (!(j === 0)){
+                        const cellAboveLeft = rows[i - 1].getElementsByTagName("td")[j - 1];
+                        if (! cellAboveLeft.bombFlag){
+                            cellAboveLeft.count += 1;
+                            cellAboveLeft.innerHTML = cellAboveLeft.count;
+                        }
+                    }
+    
+                    if (!(j === rows.length - 1)){
+                        const cellAboveRight = rows[i - 1].getElementsByTagName("td")[j + 1];
+                        if (! cellAboveRight.bombFlag){
+                            cellAboveRight.count += 1;
+                            cellAboveRight.innerHTML = cellAboveRight.count;
+                        }
                     }
                 }
 
-                if (!(i === 0) && !(j === rows.length - 1)){
-                    const cellAboveRight = rows[i - 1].getElementsByTagName("td")[j + 1];
-                    if (! cellAboveRight.bombFlag){
-                        cellAboveRight.count += 1;
-                        cellAboveRight.innerHTML = cellAboveRight.count;
-                    }
-                }
-
+                //checking cells on same row 
                 if (!(j === 0)){
                     const cellLeft = rows[i].getElementsByTagName("td")[j - 1];
                     if (! cellLeft.bombFlag){
@@ -81,34 +83,33 @@ const setBombCounts = () => {
                     }
                 }
 
+                //checking cells below 
                 if (! (i === rows.length - 1)){
                     const cellBelow = rows[i + 1].getElementsByTagName("td")[j];
                     if (! cellBelow.bombFlag){
                         cellBelow.count += 1;
                         cellBelow.innerHTML = cellBelow.count;
                     }
-                }
 
-                if (! (i === rows.length - 1) && !(j === 0)){
-                    const cellBelowLeft = rows[i + 1].getElementsByTagName("td")[j - 1];
-                    if (! cellBelowLeft.bombFlag){
-                        cellBelowLeft.count += 1;
-                        cellBelowLeft.innerHTML = cellBelowLeft.count;
+                    if (!(j === 0)){
+                        const cellBelowLeft = rows[i + 1].getElementsByTagName("td")[j - 1];
+                        if (! cellBelowLeft.bombFlag){
+                            cellBelowLeft.count += 1;
+                            cellBelowLeft.innerHTML = cellBelowLeft.count;
+                        }
                     }
-                }
-
-                if (! (i === rows.length - 1) && !(j === rows.length - 1)){
-                    const cellBelowRight = rows[i + 1].getElementsByTagName("td")[j + 1];
-                    if (! cellBelowRight.bombFlag){
-                        cellBelowRight.count += 1;
-                        cellBelowRight.innerHTML = cellBelowRight.count;
+    
+                    if (!(j === rows.length - 1)){
+                        const cellBelowRight = rows[i + 1].getElementsByTagName("td")[j + 1];
+                        if (! cellBelowRight.bombFlag){
+                            cellBelowRight.count += 1;
+                            cellBelowRight.innerHTML = cellBelowRight.count;
+                        }
                     }
                 }
             }
         }
     }
 }
-
-
 
 createGrid();
