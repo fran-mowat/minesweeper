@@ -6,4 +6,16 @@ table, td{
 td{
     height: 16px;
     width: 16px;
+    padding: 3px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+td.bomb{
+    background-image: url(./images/bomb.png);
+}
+
+td.flag{
+    background-image: url(./images/flag.png);
 }
