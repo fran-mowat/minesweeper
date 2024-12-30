@@ -7,6 +7,7 @@ const createGrid = () => {
             cell.bombFlag = false;
             cell.count = 0; 
             cell.addEventListener("click", () => revealCell(i, j));
+            cell.addEventListener("contextmenu", (e) => placeFlag(e, i, j));
             row.appendChild(cell);
         }
         table.appendChild(row);
@@ -124,6 +125,19 @@ const revealCell = (i, j) => {
         alert("Game over!");
     } 
     cellClicked.style.backgroundColor = "green";
+}
+
+const placeFlag = (e, i, j) => {
+    e.preventDefault(); 
+
+    const rowClicked = document.getElementsByTagName("tr")[i];
+    const cellClicked = rowClicked.getElementsByTagName("td")[j];
+
+    if (!cellClicked.flagPlaced){
+        cellClicked.classList += "flag";
+    } else {
+        cellClicked.classList = "";
+    }
 }
 
 createGrid();
