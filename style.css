@@ -20,3 +20,7 @@ td.bomb{
 td.flag{
     background-image: url(./images/flag.png);
 }
+
+td.zero, td.one, td.two, td.three, td.four, td.five, td.six, td.seven, td.eight{
+    background-color: rgb(100, 181, 100);
+}
