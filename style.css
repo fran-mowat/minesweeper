@@ -17,18 +17,22 @@ td{
     height: 18px;
     width: 18px;
     padding: 3px;
-    background-size: contain;
+    background-size: 14px;
     background-repeat: no-repeat;
     background-position: center;
     text-align: center;
 }
 
 td.bomb{
-    background-image: url(./images/bomb.png);
+    background-image: url(./images/bomb.svg);
 }
 
 td.flag{
     background-image: url(./images/flag.png);
+}
+
+td.cross{
+    background-image: url(./images/cross.svg);
 }
 
 td.zero, td.one, td.two, td.three, td.four, td.five, td.six, td.seven, td.eight{
