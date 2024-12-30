@@ -11,10 +11,25 @@
     <div>
         <h1>Welcome to Minesweeper</h1>
     </div>
-    <div>
-        <table>
-        </table>
+    <div class="main">
+        <div class="left"></div>
+        <div class="center">
+            <table>
+            </table>
+        </div>
+        <div class="right">
+            <p>Game mode</p>
+            <input type="radio" name="game-mode" value="beginner"/>
+            <label for="beginner">Beginner</label>
+            <br>
+            <input type="radio" name="game-mode" value="intermediate"/>
+            <label for="intermediate">Intermediate</label>
+            <br>
+            <input type="radio" name="game-mode" value="expert"/>
+            <label for="expert">Expert</label>
+        </div>
     </div>
+
     <div class="game-over">
         <p>You lose.</p>
         <input type="button" value="Play Again?"/>
