@@ -31,7 +31,6 @@ const placeMines = () => {
         const selectedCell = selectedRow.getElementsByTagName("td")[columnNumber];
 
         if (!selectedCell.bombFlag){
-            selectedCell.style.backgroundColor = "red";
             selectedCell.bombFlag = true; 
             bombs++; 
         }
