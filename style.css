@@ -32,5 +32,38 @@ td.flag{
 }
 
 td.zero, td.one, td.two, td.three, td.four, td.five, td.six, td.seven, td.eight{
-    background-color: rgb(100, 181, 100);
+    background-color: #ddd;
+    font-weight: 700;
+}
+
+td.one{
+    color: #00f;
+}
+
+td.two{
+    color: #080;
+}
+
+td.three{
+    color: #f00;
+}
+
+td.four{
+    color: #008;
+}
+
+td.five{
+    color: #800;
+}
+
+td.six{
+    color: #088;
+}
+
+td.seven{
+    color: #000;
+}
+
+td.eight{
+    color: #777;
 }
