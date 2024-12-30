@@ -124,8 +124,7 @@ const revealCell = (i, j) => {
 
     if (!cellClicked.flagPlaced){
         if (cellClicked.bombFlag){
-            cellClicked.classList += "bomb";
-            alert("Game over!");
+            gameOver(cellClicked);
         } 
         cellClicked.style.backgroundColor = "green";
         cellClicked.clicked = true; 
@@ -140,8 +139,7 @@ const placeFlag = (e, i, j) => {
 
     if (!cellClicked.clicked){
         if (cellClicked.bombFlag){
-            cellClicked.classList += "bomb";
-            alert("Game over!");
+            gameOver(cellClicked);
         }
         else if (!cellClicked.flagPlaced){
             cellClicked.classList += "flag";
@@ -151,6 +149,11 @@ const placeFlag = (e, i, j) => {
             cellClicked.flagPlaced = false; 
         }
     }
+}
+
+const gameOver = (cellClicked) => {
+    cellClicked.classList += "bomb";
+    cellClicked.style.backgroundColor = "red";
 }
 
 createGrid();
