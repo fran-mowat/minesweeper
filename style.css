@@ -72,10 +72,10 @@ td.eight{
     color: #777;
 }
 
-.game-over{
+.game-over, .game-win{
     display: none;
 }
 
-.game-over input{
+.game-over input, .game-win input{
     font-family: 'Courier New', Courier, monospace;
 }
