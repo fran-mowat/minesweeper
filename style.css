@@ -71,3 +71,11 @@ td.seven{
 td.eight{
     color: #777;
 }
+
+.game-over{
+    display: none;
+}
+
+.game-over input{
+    font-family: 'Courier New', Courier, monospace;
+}
