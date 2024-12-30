@@ -34,7 +34,6 @@ const placeMines = () => {
 
         if (!selectedCell.bombFlag){
             selectedCell.bombFlag = true; 
-            selectedCell.style.backgroundColor = "purple";
             bombs++; 
         }
     }
