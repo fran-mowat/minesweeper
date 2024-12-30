@@ -52,14 +52,12 @@ const setBombCounts = () => {
                     const cellAbove = rows[i - 1].getElementsByTagName("td")[j];
                     if (! cellAbove.bombFlag){
                         cellAbove.count += 1;
-                        cellAbove.innerHTML = cellAbove.count;
                     }
 
                     if (!(j === 0)){
                         const cellAboveLeft = rows[i - 1].getElementsByTagName("td")[j - 1];
                         if (! cellAboveLeft.bombFlag){
                             cellAboveLeft.count += 1;
-                            cellAboveLeft.innerHTML = cellAboveLeft.count;
                         }
                     }
     
@@ -67,7 +65,6 @@ const setBombCounts = () => {
                         const cellAboveRight = rows[i - 1].getElementsByTagName("td")[j + 1];
                         if (! cellAboveRight.bombFlag){
                             cellAboveRight.count += 1;
-                            cellAboveRight.innerHTML = cellAboveRight.count;
                         }
                     }
                 }
@@ -77,7 +74,6 @@ const setBombCounts = () => {
                     const cellLeft = rows[i].getElementsByTagName("td")[j - 1];
                     if (! cellLeft.bombFlag){
                         cellLeft.count += 1;
-                        cellLeft.innerHTML = cellLeft.count;
                     }
                 }
 
@@ -85,7 +81,6 @@ const setBombCounts = () => {
                     const cellRight = rows[i].getElementsByTagName("td")[j + 1];
                     if (! cellRight.bombFlag){
                         cellRight.count += 1;
-                        cellRight.innerHTML = cellRight.count;
                     }
                 }
 
@@ -94,14 +89,12 @@ const setBombCounts = () => {
                     const cellBelow = rows[i + 1].getElementsByTagName("td")[j];
                     if (! cellBelow.bombFlag){
                         cellBelow.count += 1;
-                        cellBelow.innerHTML = cellBelow.count;
                     }
 
                     if (!(j === 0)){
                         const cellBelowLeft = rows[i + 1].getElementsByTagName("td")[j - 1];
                         if (! cellBelowLeft.bombFlag){
                             cellBelowLeft.count += 1;
-                            cellBelowLeft.innerHTML = cellBelowLeft.count;
                         }
                     }
     
@@ -109,7 +102,6 @@ const setBombCounts = () => {
                         const cellBelowRight = rows[i + 1].getElementsByTagName("td")[j + 1];
                         if (! cellBelowRight.bombFlag){
                             cellBelowRight.count += 1;
-                            cellBelowRight.innerHTML = cellBelowRight.count;
                         }
                     }
                 }
@@ -131,7 +123,10 @@ const revealCell = (x, y) => {
 
     const numbers = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight"];
     cellClicked.classList += numbers[cellClicked.count];
-    console.log(cellClicked.classList);
+
+    if (cellClicked.count > 0){
+        cellClicked.innerHTML = cellClicked.count;
+    }
 
     if (cellClicked.bombFlag) {
         gameOver(cellClicked);
