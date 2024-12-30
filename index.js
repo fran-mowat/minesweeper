@@ -118,49 +118,39 @@ const setBombCounts = () => {
     }
 }
 
-const revealCell = (i, j) => {
+const revealCell = (x, y) => {
     const rows = document.getElementsByTagName("tr");
+    const rowClicked = rows[x];
+    const cellClicked = rowClicked.getElementsByTagName("td")[y];
 
-    if (i < 0 || i >= 16 || j < 0 || j >= 16) {
+    if (x < 0 || x >= 16 || y < 0 || y >= 16 || cellClicked.clicked || cellClicked.flagPlaced) {
         return;
     }
 
-    const queue = [[i, j]];
+    cellClicked.style.backgroundColor = "green";
+    cellClicked.clicked = true;
 
-    while (queue.length > 0) {
-        const [x, y] = queue.shift();
-        const rowClicked = rows[x];
-        const cellClicked = rowClicked.getElementsByTagName("td")[y];
+    if (cellClicked.bombFlag) {
+        gameOver(cellClicked);
+        return;
+    }
 
-        if (x < 0 || x >= 16 || y < 0 || y >= 16 || cellClicked.clicked || cellClicked.flagPlaced) {
-            continue;
-        }
-
-        cellClicked.style.backgroundColor = "green";
-        cellClicked.clicked = true;
-
-        if (cellClicked.bombFlag) {
-            gameOver(cellClicked);
-            return;
-        }
-
-        if (cellClicked.count === 0) {
-            for (let dx = -1; dx <= 1; dx++) {
-                for (let dy = -1; dy <= 1; dy++) {
-                    const newX = x + dx;
-                    const newY = y + dy;
-                    if (newX >= 0 && newX < 16 && newY >= 0 && newY < 16) {
-                        const newRow = rows[newX];
-                        const newCell = newRow.getElementsByTagName("td")[newY];
-                        if (!newCell.clicked && !newCell.flagPlaced) {
-                            queue.push([newX, newY]);
-                        }
+    if (cellClicked.count === 0) {
+        for (let dx = -1; dx <= 1; dx++) {
+            for (let dy = -1; dy <= 1; dy++) {
+                const newX = x + dx;
+                const newY = y + dy;
+                if (newX >= 0 && newX < 16 && newY >= 0 && newY < 16) {
+                    const newRow = rows[newX];
+                    const newCell = newRow.getElementsByTagName("td")[newY];
+                    if (!newCell.clicked && !newCell.flagPlaced) {
+                        revealCell(newX, newY);
                     }
                 }
             }
         }
     }
-};
+}
 
 const placeFlag = (e, i, j) => {
     e.preventDefault(); 
