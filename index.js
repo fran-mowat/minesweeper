@@ -157,10 +157,7 @@ const placeFlag = (e, i, j) => {
     const cellClicked = rowClicked.getElementsByTagName("td")[j];
 
     if (!cellClicked.clicked){
-        if (cellClicked.bombFlag){
-            gameOver(cellClicked);
-        }
-        else if (!cellClicked.flagPlaced){
+        if (!cellClicked.flagPlaced){
             cellClicked.classList += "flag";
             cellClicked.flagPlaced = true; 
         } else {
