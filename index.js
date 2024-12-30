@@ -168,7 +168,7 @@ const placeFlag = (e, i, j) => {
 
 const gameOver = (cellClicked) => {
     cellClicked.classList += "bomb";
-    cellClicked.style.backgroundColor = "grey";
+    cellClicked.style.backgroundColor = "red";
 
     for (let i = 0; i < 16; i++){
         for (let j = 0; j < 16; j++){
