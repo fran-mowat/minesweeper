@@ -175,8 +175,12 @@ const gameOver = (cellClicked) => {
             const row = document.getElementsByTagName("tr")[i];
             const cell = row.getElementsByTagName("td")[j]; 
 
-            if (cell.bombFlag){
+            if (cell.bombFlag && !cell.flagPlaced){
                 cell.classList = "bomb";
+            } 
+
+            if (!cell.bombFlag && cell.flagPlaced){
+                cell.classList = "cross";
             }
 
             cell.replaceWith(cell.cloneNode(true)); //removing all event listeners 
