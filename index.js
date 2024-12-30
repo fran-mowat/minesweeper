@@ -26,9 +26,11 @@ const placeMines = () => {
         const selectedRow = table.getElementsByTagName("tr")[rowNumber];
         const selectedCell = selectedRow.getElementsByTagName("td")[columnNumber];
 
-        selectedCell.style.backgroundColor = "red";
-        selectedCell.bombFlag = true; 
-        bombs++; 
+        if (!selectedCell.bombFlag){
+            selectedCell.style.backgroundColor = "red";
+            selectedCell.bombFlag = true; 
+            bombs++; 
+        }
     }
 }
 
