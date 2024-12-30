@@ -1,3 +1,5 @@
+let revealedCells = 0; 
+
 const createGrid = () => {
     const table = document.getElementsByTagName("table")[0];
     for (let i = 0; i < 16; i++){
@@ -32,6 +34,7 @@ const placeMines = () => {
 
         if (!selectedCell.bombFlag){
             selectedCell.bombFlag = true; 
+            selectedCell.style.backgroundColor = "purple";
             bombs++; 
         }
     }
@@ -123,13 +126,21 @@ const revealCell = (x, y) => {
         return;
     }
 
-    cellClicked.clicked = true;
+    if (!cellClicked.clicked){
+        cellClicked.clicked = true;
+        revealedCells++; 
+    }
 
     const numbers = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight"];
     cellClicked.classList += numbers[cellClicked.count];
 
     if (cellClicked.count > 0){
         cellClicked.innerHTML = cellClicked.count;
+    }
+
+    if (revealedCells === (16 * 16) - 40){
+        gameWon();
+        return; 
     }
 
     if (cellClicked.count === 0) {
@@ -194,6 +205,24 @@ const gameOver = (cellClicked) => {
     playAgain.addEventListener("click", resetGame);
 }
 
+const gameWon = () => {
+    for (let i = 0; i < 16; i++){
+        for (let j = 0; j < 16; j++){
+            const row = document.getElementsByTagName("tr")[i];
+            const cell = row.getElementsByTagName("td")[j];
+            cell.replaceWith(cell.cloneNode(true)); //removing all event listeners 
+        }
+    }
+
+    const gameWin = document.getElementsByClassName("game-win")[0];
+    gameWin.style.display = "block";
+
+    const playAgain = document.getElementsByTagName("input")[1];
+    playAgain.addEventListener("click", resetGame);
+
+    revealedCells = 0;
+}
+
 const resetGame = () => {
     const table = document.getElementsByTagName("table")[0];
     table.innerHTML = "";
@@ -201,6 +230,11 @@ const resetGame = () => {
 
     const gameOver = document.getElementsByClassName("game-over")[0];
     gameOver.style.display = "none";
+
+    const gameWin = document.getElementsByClassName("game-win")[0];
+    gameWin.style.display = "none";
+
+    revealedCells = 0;
 }
 
 createGrid();
