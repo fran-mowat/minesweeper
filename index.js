@@ -6,6 +6,8 @@ const createGrid = () => {
             const cell = document.createElement("td");
             cell.bombFlag = false;
             cell.count = 0; 
+            cell.clicked = false; 
+            cell.flagPlaced = false; 
             cell.addEventListener("click", () => revealCell(i, j));
             cell.addEventListener("contextmenu", (e) => placeFlag(e, i, j));
             row.appendChild(cell);
@@ -120,11 +122,14 @@ const revealCell = (i, j) => {
     const rowClicked = document.getElementsByTagName("tr")[i];
     const cellClicked = rowClicked.getElementsByTagName("td")[j];
 
-    if (cellClicked.bombFlag){
-        cellClicked.classList += "bomb";
-        alert("Game over!");
-    } 
-    cellClicked.style.backgroundColor = "green";
+    if (!cellClicked.flagPlaced){
+        if (cellClicked.bombFlag){
+            cellClicked.classList += "bomb";
+            alert("Game over!");
+        } 
+        cellClicked.style.backgroundColor = "green";
+        cellClicked.clicked = true; 
+    }
 }
 
 const placeFlag = (e, i, j) => {
@@ -133,10 +138,14 @@ const placeFlag = (e, i, j) => {
     const rowClicked = document.getElementsByTagName("tr")[i];
     const cellClicked = rowClicked.getElementsByTagName("td")[j];
 
-    if (!cellClicked.flagPlaced){
-        cellClicked.classList += "flag";
-    } else {
-        cellClicked.classList = "";
+    if (!cellClicked.clicked){
+        if (!cellClicked.flagPlaced){
+            cellClicked.classList += "flag";
+            cellClicked.flagPlaced = true; 
+        } else {
+            cellClicked.classList = "";
+            cellClicked.flagPlaced = false; 
+        }
     }
 }
 
