@@ -115,6 +115,11 @@ const revealCell = (x, y) => {
     const rowClicked = rows[x];
     const cellClicked = rowClicked.getElementsByTagName("td")[y];
 
+    if (cellClicked.bombFlag) {
+        gameOver(cellClicked);
+        return;
+    }
+
     if (x < 0 || x >= 16 || y < 0 || y >= 16 || cellClicked.clicked || cellClicked.flagPlaced) {
         return;
     }
@@ -126,11 +131,6 @@ const revealCell = (x, y) => {
 
     if (cellClicked.count > 0){
         cellClicked.innerHTML = cellClicked.count;
-    }
-
-    if (cellClicked.bombFlag) {
-        gameOver(cellClicked);
-        return;
     }
 
     if (cellClicked.count === 0) {
@@ -169,12 +169,17 @@ const placeFlag = (e, i, j) => {
 
 const gameOver = (cellClicked) => {
     cellClicked.classList += "bomb";
-    cellClicked.style.backgroundColor = "red";
+    cellClicked.style.backgroundColor = "grey";
 
     for (let i = 0; i < 16; i++){
         for (let j = 0; j < 16; j++){
             const row = document.getElementsByTagName("tr")[i];
             const cell = row.getElementsByTagName("td")[j]; 
+
+            if (cell.bombFlag){
+                cell.classList = "bomb";
+            }
+
             cell.replaceWith(cell.cloneNode(true)); //removing all event listeners 
         }
     }
