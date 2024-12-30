@@ -198,6 +198,9 @@ const resetGame = () => {
     const table = document.getElementsByTagName("table")[0];
     table.innerHTML = "";
     createGrid();
+
+    const gameOver = document.getElementsByClassName("game-over")[0];
+    gameOver.style.display = "none";
 }
 
 createGrid();
