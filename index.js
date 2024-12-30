@@ -6,6 +6,7 @@ const createGrid = () => {
             const cell = document.createElement("td");
             cell.bombFlag = false;
             cell.count = 0; 
+            cell.addEventListener("click", () => revealCell(i, j));
             row.appendChild(cell);
         }
         table.appendChild(row);
@@ -112,6 +113,13 @@ const setBombCounts = () => {
             }
         }
     }
+}
+
+const revealCell = (i, j) => {
+    const rowClicked = document.getElementsByTagName("tr")[i];
+    const cellClicked = rowClicked.getElementsByTagName("td")[j];
+
+    cellClicked.style.backgroundColor = "green";
 }
 
 createGrid();
