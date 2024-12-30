@@ -119,6 +119,10 @@ const revealCell = (i, j) => {
     const rowClicked = document.getElementsByTagName("tr")[i];
     const cellClicked = rowClicked.getElementsByTagName("td")[j];
 
+    if (cellClicked.bombFlag){
+        cellClicked.classList += "bomb";
+        alert("Game over!");
+    } 
     cellClicked.style.backgroundColor = "green";
 }
 
