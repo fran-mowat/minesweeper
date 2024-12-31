@@ -55,6 +55,7 @@ td{
 
 td.bomb{
     background-image: url(./images/bomb.svg);
+    background-color: #ddd;
 }
 
 td.flag{
