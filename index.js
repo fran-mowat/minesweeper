@@ -231,7 +231,7 @@ const gameOver = (cellClicked) => {
     revealedCells = 0;
     flagsPlaced = 0;
 
-    const playAgain = document.getElementsByTagName("input")[3];
+    const playAgain = document.getElementsByTagName("input")[4];
     playAgain.addEventListener("click", resetGame);
 
     clearInterval(timerInterval);
@@ -250,7 +250,7 @@ const gameWon = () => {
     const gameWin = document.getElementsByClassName("game-win")[0];
     gameWin.style.display = "block";
 
-    const playAgain = document.getElementsByTagName("input")[4];
+    const playAgain = document.getElementsByTagName("input")[5];
     playAgain.addEventListener("click", resetGame);
 
     revealedCells = 0;
