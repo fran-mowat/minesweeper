@@ -1,10 +1,12 @@
 let revealedCells = 0; 
+const bombCount = 40; 
+const size = 16;  
 
 const createGrid = () => {
     const table = document.getElementsByTagName("table")[0];
-    for (let i = 0; i < 16; i++){
+    for (let i = 0; i < size; i++){
         const row = document.createElement("tr");
-        for (let j = 0; j < 16; j++){
+        for (let j = 0; j < size; j++){
             const cell = document.createElement("td");
             cell.bombFlag = false;
             cell.count = 0; 
@@ -25,9 +27,9 @@ const placeMines = () => {
     const table = document.getElementsByTagName("table")[0];
     let bombs = 0;
 
-    while (bombs < 40){
-        let rowNumber = Math.floor(Math.random() * 16);
-        let columnNumber = Math.floor(Math.random() * 16);
+    while (bombs < bombCount){
+        let rowNumber = Math.floor(Math.random() * size);
+        let columnNumber = Math.floor(Math.random() * size);
 
         const selectedRow = table.getElementsByTagName("tr")[rowNumber];
         const selectedCell = selectedRow.getElementsByTagName("td")[columnNumber];
@@ -117,11 +119,12 @@ const revealCell = (x, y) => {
     const cellClicked = rowClicked.getElementsByTagName("td")[y];
 
     if (cellClicked.bombFlag) {
+        console.log("bomb clicked")
         gameOver(cellClicked);
         return;
     }
 
-    if (x < 0 || x >= 16 || y < 0 || y >= 16 || cellClicked.clicked || cellClicked.flagPlaced) {
+    if (x < 0 || x >= size || y < 0 || y >= size || cellClicked.clicked || cellClicked.flagPlaced) {
         return;
     }
 
@@ -137,7 +140,7 @@ const revealCell = (x, y) => {
         cellClicked.innerHTML = cellClicked.count;
     }
 
-    if (revealedCells === (16 * 16) - 40){
+    if (revealedCells === (size * size) - bombCount){
         gameWon();
         return; 
     }
@@ -147,7 +150,7 @@ const revealCell = (x, y) => {
             for (let dy = -1; dy <= 1; dy++) {
                 const newX = x + dx;
                 const newY = y + dy;
-                if (newX >= 0 && newX < 16 && newY >= 0 && newY < 16) {
+                if (newX >= 0 && newX < size && newY >= 0 && newY < size) {
                     const newRow = rows[newX];
                     const newCell = newRow.getElementsByTagName("td")[newY];
                     if (!newCell.clicked && !newCell.flagPlaced) {
@@ -177,11 +180,13 @@ const placeFlag = (e, i, j) => {
 }
 
 const gameOver = (cellClicked) => {
+    console.log("gameOver run")
+
     cellClicked.classList += "bomb";
     cellClicked.style.backgroundColor = "red";
 
-    for (let i = 0; i < 16; i++){
-        for (let j = 0; j < 16; j++){
+    for (let i = 0; i < size; i++){
+        for (let j = 0; j < size; j++){
             const row = document.getElementsByTagName("tr")[i];
             const cell = row.getElementsByTagName("td")[j]; 
 
@@ -197,16 +202,17 @@ const gameOver = (cellClicked) => {
         }
     }
 
-    const gameOver = document.getElementsByClassName("game-over")[0];
-    gameOver.style.display = "block";
+    const gameLost = document.getElementsByClassName("game-over")[0];
+    gameLost.style.display = "block";
 
-    const playAgain = document.getElementsByTagName("input")[0];
+    const playAgain = document.getElementsByTagName("input")[3];
+    console.log(playAgain);
     playAgain.addEventListener("click", resetGame);
 }
 
 const gameWon = () => {
-    for (let i = 0; i < 16; i++){
-        for (let j = 0; j < 16; j++){
+    for (let i = 0; i < size; i++){
+        for (let j = 0; j < size; j++){
             const row = document.getElementsByTagName("tr")[i];
             const cell = row.getElementsByTagName("td")[j];
             cell.replaceWith(cell.cloneNode(true)); //removing all event listeners 
@@ -216,7 +222,7 @@ const gameWon = () => {
     const gameWin = document.getElementsByClassName("game-win")[0];
     gameWin.style.display = "block";
 
-    const playAgain = document.getElementsByTagName("input")[1];
+    const playAgain = document.getElementsByTagName("input")[4];
     playAgain.addEventListener("click", resetGame);
 
     revealedCells = 0;
@@ -227,8 +233,8 @@ const resetGame = () => {
     table.innerHTML = "";
     createGrid();
 
-    const gameOver = document.getElementsByClassName("game-over")[0];
-    gameOver.style.display = "none";
+    const gameLost = document.getElementsByClassName("game-over")[0];
+    gameLost.style.display = "none";
 
     const gameWin = document.getElementsByClassName("game-win")[0];
     gameWin.style.display = "none";
