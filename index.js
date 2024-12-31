@@ -19,6 +19,9 @@ const createGrid = () => {
         table.appendChild(row);
     }
 
+    const bombCounter = document.getElementsByTagName("span")[0];
+    bombCounter.innerHTML = bombCount;
+
     const gameMode = document.getElementsByName("game-mode");
     for (let i = 0; i < gameMode.length; i++){
         gameMode[i].addEventListener("click", changeSize);
@@ -172,13 +175,17 @@ const placeFlag = (e, i, j) => {
     const rowClicked = document.getElementsByTagName("tr")[i];
     const cellClicked = rowClicked.getElementsByTagName("td")[j];
 
+    const bombCounter = document.getElementsByTagName("span")[0];
+
     if (!cellClicked.clicked){
         if (!cellClicked.flagPlaced){
             cellClicked.classList += "flag";
             cellClicked.flagPlaced = true; 
+            bombCounter.innerHTML --;
         } else {
             cellClicked.classList = "";
             cellClicked.flagPlaced = false; 
+            bombCounter.innerHTML ++;
         }
     }
 }
