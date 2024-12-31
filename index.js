@@ -312,4 +312,31 @@ const startTimer = () => {
     }, 200);
 }
 
+const displayRules = () => {
+    const modal = document.getElementsByClassName("modal")[0];
+    modal.style.display = "block";
+
+    document.addEventListener("click", hideRulesHandler);
+}
+
+const hideRulesHandler = (e) => {
+    const modal = document.getElementsByClassName("modal")[0]; 
+    if (e.target !== rulesButton) { 
+        hideRules(); 
+    }
+}
+
+const hideRules = () => {
+    const modal = document.getElementsByClassName("modal")[0];
+    modal.style.display = "none";
+
+    document.removeEventListener("click", hideRules);
+}
+
+const rulesButton = document.getElementsByTagName("input")[3];
+rulesButton.addEventListener("click", displayRules);
+
+const closeButton = document.getElementsByClassName("close")[0];
+closeButton.addEventListener("click", hideRules);
+
 createGrid();
