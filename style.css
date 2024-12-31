@@ -105,8 +105,16 @@ td.eight{
 
 .game-over, .game-win{
     display: none;
+    margin: 20px;
 }
 
 .game-over input, .game-win input{
     font-family: 'Courier New', Courier, monospace;
+}
+
+@media (min-width: 768px) {
+    .game-over, .game-win{
+        width: fit-content;
+        margin: auto;
+    }
 }
