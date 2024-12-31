@@ -30,6 +30,8 @@
             <br>
             <input type="radio" name="game-mode" value="expert"/>
             <label for="expert">Expert</label>
+            <br><br>
+            <input type="button" value="Rules"/>
         </div>
     </div>
 
@@ -40,6 +42,18 @@
     <div class="game-win">
         <p>You win.</p>
         <input type="button" value="Play Again"/>
+    </div>
+
+    <div class="modal">
+        <div id="rules">
+            <img src="./images/exit.svg" alt="exit icon" class="close">
+            <h3>Welcome to Minesweeper</h3>
+            <p>The board is divided into a grid of cells. Some cells contain mines, while others are safe. The objective is to uncover all the safe cells without denotating a mine. Some cells contain numbers which indicate the number of adjacent mines. </p>
+            
+            <h4>Controls</h4>
+            <p>Left click on an empty square to reveal it.</p>
+            <p>Right click on an empty square to flag it. </p>
+        </div>
     </div>
 </body>
 </html>
