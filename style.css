@@ -7,13 +7,34 @@ h1{
 }
 
 .main{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+    display: block;
 }
 
-.left, .right{
-    width: 20vw;
+.center{
+    width: fit-content;
+    margin: auto;
+}
+
+.right{
+    margin: 20px;
+}
+
+@media (min-width: 768px) {
+    .main{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 20px;
+    }
+    
+    .left, .right{
+        width: 20vw;
+        margin: 0;
+    }
+
+    .center{
+        margin: 0;
+    }
 }
 
 table, td{
