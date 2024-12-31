@@ -282,12 +282,12 @@ const changeSize = () => {
             size = 9;
             break;
         case "intermediate":
-            bombCount = 40; 
-            size = 16;
+            bombCount = 30; 
+            size = 15;
             break; 
         case "expert":
-            bombCount = 99; 
-            size = 30;
+            bombCount = 50; 
+            size = 20;
             break;
     }
 
