@@ -22,10 +22,15 @@ const createGrid = () => {
     const bombCounter = document.getElementsByTagName("span")[0];
     bombCounter.innerHTML = bombCount;
 
+    const timer = document.getElementById("time");
+    timer.innerHTML = "00:00";
+
     const gameMode = document.getElementsByName("game-mode");
     for (let i = 0; i < gameMode.length; i++){
         gameMode[i].addEventListener("click", changeSize);
     }
+
+    table.addEventListener("click", startTimer);
 
     placeMines();
     setBombCounts();
@@ -216,6 +221,9 @@ const gameOver = (cellClicked) => {
 
     const playAgain = document.getElementsByTagName("input")[3];
     playAgain.addEventListener("click", resetGame);
+
+    const timer = document.getElementById("time");
+    clearInterval(timer.interval);
 }
 
 const gameWon = () => {
@@ -234,6 +242,9 @@ const gameWon = () => {
     playAgain.addEventListener("click", resetGame);
 
     revealedCells = 0;
+
+    const timer = document.getElementById("time");
+    clearInterval(timer.interval);
 }
 
 const resetGame = () => {
@@ -268,6 +279,24 @@ const changeSize = () => {
     }
 
     resetGame();
+}
+
+const startTimer = () => {
+    const table = document.getElementsByTagName("table")[0];
+    table.removeEventListener("click", startTimer);
+
+    const timer = document.getElementById("time");
+
+    const start = Date.now();
+    timerInterval = setInterval(function() {
+        let secondsElapsed = Math.floor((Date.now() - start) / 1000); 
+        let minutes = Math.floor(secondsElapsed / 60);
+        let seconds = secondsElapsed % 60;
+
+        timer.textContent = (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+    }, 900);
+
+    timer.interval = timerInterval;
 }
 
 
