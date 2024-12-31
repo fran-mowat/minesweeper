@@ -108,7 +108,7 @@ td.eight{
     margin: 20px;
 }
 
-.game-over input, .game-win input{
+input[type="button"]{
     font-family: 'Courier New', Courier, monospace;
     border: 1px solid #444;
     border-radius: 5px;
@@ -116,7 +116,7 @@ td.eight{
     padding: 5px 10px;
 }
 
-.game-over input:hover, .game-win input:hover{
+input[type="button"]:hover{
     background-color: #ddd;
     border-color: #333;
 }
@@ -126,4 +126,34 @@ td.eight{
         width: fit-content;
         margin: auto;
     }
+}
+
+.modal{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #0003;
+}
+
+.close{
+    float: right;
+    width: 28px;   
+}
+
+#rules{
+    position: absolute;
+    top: 0;
+    margin: 5vw;
+    padding: 5px 10px 5px 20px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background-color: white;
+}
+
+#rules p{
+    margin-right: 5px;
 }
