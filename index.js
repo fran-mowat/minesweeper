@@ -2,6 +2,7 @@ let revealedCells = 0;
 let flagsPlaced = 0;
 let bombCount = 40; 
 let size = 16;
+let timerInterval;
 
 const createGrid = () => {
     const table = document.getElementsByTagName("table")[0];
@@ -30,8 +31,6 @@ const createGrid = () => {
     for (let i = 0; i < gameMode.length; i++){
         gameMode[i].addEventListener("click", changeSize);
     }
-
-    table.addEventListener("click", startTimer);
 
     placeMines();
     setBombCounts();
@@ -132,6 +131,10 @@ const revealCell = (x, y) => {
     const rowClicked = rows[x];
     const cellClicked = rowClicked.getElementsByTagName("td")[y];
 
+    if (!timerInterval) {
+        startTimer();
+    }
+
     if (cellClicked.bombFlag) {
         gameOver(cellClicked);
         return;
@@ -231,9 +234,8 @@ const gameOver = (cellClicked) => {
     const playAgain = document.getElementsByTagName("input")[3];
     playAgain.addEventListener("click", resetGame);
 
-    const timer = document.getElementById("time");
-    clearInterval(timer.interval);
-    timer.innerHTML = "00:00";
+    clearInterval(timerInterval);
+    timerInterval = null;
 }
 
 const gameWon = () => {
@@ -254,9 +256,8 @@ const gameWon = () => {
     revealedCells = 0;
     flagsPlaced = 0;
 
-    const timer = document.getElementById("time");
-    clearInterval(timer.interval);
-    timer.innerHTML = "00:00";
+    clearInterval(timerInterval);
+    timerInterval = null;
 }
 
 const resetGame = () => {
@@ -291,13 +292,14 @@ const changeSize = () => {
             break;
     }
 
+    const timer = document.getElementById("time");
+    clearInterval(timerInterval);
+    timer.innerHTML = "00:00";
+
     resetGame();
 }
 
 const startTimer = () => {
-    const table = document.getElementsByTagName("table")[0];
-    table.removeEventListener("click", startTimer);
-
     const timer = document.getElementById("time");
 
     const start = Date.now();
@@ -307,10 +309,7 @@ const startTimer = () => {
         let seconds = secondsElapsed % 60;
 
         timer.textContent = (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
-    }, 900);
-
-    timer.interval = timerInterval;
+    }, 200);
 }
-
 
 createGrid();
