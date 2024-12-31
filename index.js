@@ -1,6 +1,6 @@
 let revealedCells = 0; 
-const bombCount = 40; 
-const size = 16;  
+let bombCount = 40; 
+let size = 16;
 
 const createGrid = () => {
     const table = document.getElementsByTagName("table")[0];
@@ -17,6 +17,11 @@ const createGrid = () => {
             row.appendChild(cell);
         }
         table.appendChild(row);
+    }
+
+    const gameMode = document.getElementsByName("game-mode");
+    for (let i = 0; i < gameMode.length; i++){
+        gameMode[i].addEventListener("click", changeSize);
     }
 
     placeMines();
@@ -119,7 +124,6 @@ const revealCell = (x, y) => {
     const cellClicked = rowClicked.getElementsByTagName("td")[y];
 
     if (cellClicked.bombFlag) {
-        console.log("bomb clicked")
         gameOver(cellClicked);
         return;
     }
@@ -180,8 +184,6 @@ const placeFlag = (e, i, j) => {
 }
 
 const gameOver = (cellClicked) => {
-    console.log("gameOver run")
-
     cellClicked.classList += "bomb";
     cellClicked.style.backgroundColor = "red";
 
@@ -206,7 +208,6 @@ const gameOver = (cellClicked) => {
     gameLost.style.display = "block";
 
     const playAgain = document.getElementsByTagName("input")[3];
-    console.log(playAgain);
     playAgain.addEventListener("click", resetGame);
 }
 
@@ -241,5 +242,26 @@ const resetGame = () => {
 
     revealedCells = 0;
 }
+
+const changeSize = () => {
+    const selectedMode = document.querySelector('input[name="game-mode"]:checked').value;
+    switch (selectedMode){
+        case "beginner":
+            bombCount = 10; 
+            size = 9;
+            break;
+        case "intermediate":
+            bombCount = 40; 
+            size = 16;
+            break; 
+        case "expert":
+            bombCount = 99; 
+            size = 30;
+            break;
+    }
+
+    resetGame();
+}
+
 
 createGrid();
