@@ -1,4 +1,5 @@
-let revealedCells = 0; 
+let revealedCells = 0;
+let flagsPlaced = 0;
 let bombCount = 40; 
 let size = 16;
 
@@ -146,15 +147,14 @@ const revealCell = (x, y) => {
     }
 
     const numbers = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight"];
-    cellClicked.classList += numbers[cellClicked.count];
+    cellClicked.classList.add(numbers[cellClicked.count]);
 
     if (cellClicked.count > 0){
         cellClicked.innerHTML = cellClicked.count;
     }
 
-    if (revealedCells === (size * size) - bombCount){
+    if ((revealedCells === (size * size) - bombCount) && flagsPlaced === bombCount){
         gameWon();
-        return; 
     }
 
     if (cellClicked.count === 0) {
@@ -184,19 +184,25 @@ const placeFlag = (e, i, j) => {
 
     if (!cellClicked.clicked){
         if (!cellClicked.flagPlaced){
-            cellClicked.classList += "flag";
+            cellClicked.classList.add("flag");
             cellClicked.flagPlaced = true; 
-            bombCounter.innerHTML --;
+            bombCounter.innerHTML = parseInt(bombCounter.innerHTML) - 1;
+            flagsPlaced++;
         } else {
-            cellClicked.classList = "";
+            cellClicked.classList.remove("flag");
             cellClicked.flagPlaced = false; 
-            bombCounter.innerHTML ++;
+            bombCounter.innerHTML = parseInt(bombCounter.innerHTML) + 1;
+            flagsPlaced--;
         }
+    }
+
+    if ((revealedCells === (size * size) - bombCount) && flagsPlaced === bombCount){
+        gameWon();
     }
 }
 
 const gameOver = (cellClicked) => {
-    cellClicked.classList += "bomb";
+    cellClicked.classList.add("bomb");
     cellClicked.style.backgroundColor = "red";
 
     for (let i = 0; i < size; i++){
@@ -219,11 +225,15 @@ const gameOver = (cellClicked) => {
     const gameLost = document.getElementsByClassName("game-over")[0];
     gameLost.style.display = "block";
 
+    revealedCells = 0;
+    flagsPlaced = 0;
+
     const playAgain = document.getElementsByTagName("input")[3];
     playAgain.addEventListener("click", resetGame);
 
     const timer = document.getElementById("time");
     clearInterval(timer.interval);
+    timer.innerHTML = "00:00";
 }
 
 const gameWon = () => {
@@ -242,9 +252,11 @@ const gameWon = () => {
     playAgain.addEventListener("click", resetGame);
 
     revealedCells = 0;
+    flagsPlaced = 0;
 
     const timer = document.getElementById("time");
     clearInterval(timer.interval);
+    timer.innerHTML = "00:00";
 }
 
 const resetGame = () => {
@@ -259,6 +271,7 @@ const resetGame = () => {
     gameWin.style.display = "none";
 
     revealedCells = 0;
+    flagsPlaced = 0;
 }
 
 const changeSize = () => {
