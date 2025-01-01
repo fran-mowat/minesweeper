@@ -320,8 +320,8 @@ const displayRules = () => {
 }
 
 const hideRulesHandler = (e) => {
-    const modal = document.getElementsByClassName("modal")[0]; 
-    if (e.target !== rulesButton) { 
+    const modal = document.getElementById("rules"); 
+    if (e.target !== rulesButton && (!modal.contains(e.target) || e.target === closeButton)) { 
         hideRules(); 
     }
 }
