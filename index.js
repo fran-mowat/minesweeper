@@ -25,7 +25,7 @@ const createGrid = () => {
             cell.addEventListener("mouseleave", () => handleMouseLeave());
 
             cell.addEventListener("touchstart", (e) => handleTouchStart(e, i, j)); // event listeners for touch events
-            cell.addEventListener("touchend", () => handleTouchEnd(e, i, j));
+            cell.addEventListener("touchend", (e) => handleTouchEnd(e, i, j));
 
             row.appendChild(cell);
         }
