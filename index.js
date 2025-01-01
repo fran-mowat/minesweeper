@@ -3,6 +3,9 @@ let flagsPlaced = 0;
 let bombCount = 40; 
 let size = 16;
 let timerInterval;
+let timer;
+let isLongClick = false;
+const threshold = 500;
 
 const createGrid = () => {
     const table = document.getElementsByTagName("table")[0];
@@ -14,36 +17,14 @@ const createGrid = () => {
             cell.count = 0; 
             cell.clicked = false; 
             cell.flagPlaced = false; 
-            cell.addEventListener("contextmenu", (e) => placeFlag(e, i, j));
 
-            let timer;
-            let isLongClick = false;
-            const threshold = 500;
+            cell.addEventListener("contextmenu", (e) => placeFlag(e, i, j)); // event listeners for mouse events
+            cell.addEventListener("mousedown", (e) => handleMouseDown(e, i, j)); 
+            cell.addEventListener("mouseup", (e) => handleMouseUp(e, i, j));
+            cell.addEventListener("mouseleave", () => handleMouseLeave());
 
-            cell.addEventListener('mousedown', (e) => {
-            if (e.button !== 0) return;
-            isLongClick = false;
-            timer = setTimeout(() => {
-                isLongClick = true;
-                placeFlag(e, i, j);
-            }, threshold);
-            });
-
-            cell.addEventListener('mouseup', (e) => {
-            if (e.button !== 0) return;
-            if (timer) {
-                clearTimeout(timer);
-                if (!isLongClick) {
-                    revealCell(i, j);
-                }
-            }
-            });
-
-            cell.addEventListener('mouseleave', () => {
-            if (timer) {
-                clearTimeout(timer);
-            }
-            });
+            cell.addEventListener("touchstart", (e) => handleTouchStart(e, i, j)); // event listeners for touch events
+            cell.addEventListener("touchend", () => handleTouchEnd(i, j));
 
             row.appendChild(cell);
         }
@@ -63,6 +44,48 @@ const createGrid = () => {
 
     placeMines();
     setBombCounts();
+}
+
+const handleMouseDown = (e, i, j) => {
+    if (e.button !== 0) return;
+    isLongClick = false;
+    timer = setTimeout(() => {
+        isLongClick = true;
+        placeFlag(e, i, j);
+    }, threshold);
+};
+
+const handleMouseUp = (e, i, j) => {
+    if (e.button !== 0) return;
+    if (timer) {
+        clearTimeout(timer);
+        if (!isLongClick) {
+            revealCell(i, j);
+        }
+    }
+}
+
+const handleMouseLeave = () => {
+  if (timer) {
+    clearTimeout(timer);
+  }
+}
+
+const handleTouchStart = (e, i, j) => {
+  isLongClick = false;
+  timer = setTimeout(() => {
+    isLongClick = true;
+    placeFlag(e, i, j);
+  }, threshold);
+}
+
+const handleTouchEnd = (i, j) => {
+  if (timer) {
+    clearTimeout(timer);
+    if (!isLongClick) {
+        revealCell(i, j);
+    }
+  }
 }
 
 const placeMines = () => {
