@@ -21,6 +21,7 @@ const createGrid = () => {
             const threshold = 500;
 
             cell.addEventListener('mousedown', (e) => {
+            if (e.button !== 0) return;
             isLongClick = false;
             timer = setTimeout(() => {
                 isLongClick = true;
@@ -28,7 +29,8 @@ const createGrid = () => {
             }, threshold);
             });
 
-            cell.addEventListener('mouseup', () => {
+            cell.addEventListener('mouseup', (e) => {
+            if (e.button !== 0) return;
             if (timer) {
                 clearTimeout(timer);
                 if (!isLongClick) {
