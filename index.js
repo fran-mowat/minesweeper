@@ -5,6 +5,7 @@ let size = 16;
 let timerInterval;
 let timer;
 let isLongClick = false;
+let flagPressed = false;
 const threshold = 500;
 
 const createGrid = () => {
@@ -73,16 +74,18 @@ const handleMouseLeave = () => {
 
 const handleTouchStart = (e, i, j) => {
   isLongClick = false;
+  flagPressed = false;
   timer = setTimeout(() => {
     isLongClick = true;
     placeFlag(e, i, j);
+    flagPressed = true;
   }, threshold);
 }
 
 const handleTouchEnd = (i, j) => {
   if (timer) {
     clearTimeout(timer);
-    if (!isLongClick) {
+    if (!isLongClick && !flagPressed) {
         revealCell(i, j);
     }
   }
