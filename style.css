@@ -1,5 +1,9 @@
 html{
     font-family: 'Courier New', Courier, monospace;
+    -webkit-user-select: none; 
+    -moz-user-select: none;    
+    -ms-user-select: none; 
+    user-select: none;
 }
 
 h1{
