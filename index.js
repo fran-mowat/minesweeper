@@ -14,8 +14,35 @@ const createGrid = () => {
             cell.count = 0; 
             cell.clicked = false; 
             cell.flagPlaced = false; 
-            cell.addEventListener("click", () => revealCell(i, j));
             cell.addEventListener("contextmenu", (e) => placeFlag(e, i, j));
+
+            let timer;
+            let isLongClick = false;
+            const threshold = 500;
+
+            cell.addEventListener('mousedown', (e) => {
+            isLongClick = false;
+            timer = setTimeout(() => {
+                isLongClick = true;
+                placeFlag(e, i, j);
+            }, threshold);
+            });
+
+            cell.addEventListener('mouseup', () => {
+            if (timer) {
+                clearTimeout(timer);
+                if (!isLongClick) {
+                    revealCell(i, j);
+                }
+            }
+            });
+
+            cell.addEventListener('mouseleave', () => {
+            if (timer) {
+                clearTimeout(timer);
+            }
+            });
+
             row.appendChild(cell);
         }
         table.appendChild(row);
