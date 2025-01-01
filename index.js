@@ -25,7 +25,7 @@ const createGrid = () => {
             cell.addEventListener("mouseleave", () => handleMouseLeave());
 
             cell.addEventListener("touchstart", (e) => handleTouchStart(e, i, j)); // event listeners for touch events
-            cell.addEventListener("touchend", () => handleTouchEnd(i, j));
+            cell.addEventListener("touchend", () => handleTouchEnd(e, i, j));
 
             row.appendChild(cell);
         }
@@ -67,28 +67,30 @@ const handleMouseUp = (e, i, j) => {
 }
 
 const handleMouseLeave = () => {
-  if (timer) {
-    clearTimeout(timer);
-  }
+    if (timer) {
+        clearTimeout(timer);
+    }
 }
 
 const handleTouchStart = (e, i, j) => {
-  isLongClick = false;
-  flagPressed = false;
-  timer = setTimeout(() => {
-    isLongClick = true;
-    placeFlag(e, i, j);
-    flagPressed = true;
-  }, threshold);
+    e.preventDefault();
+    isLongClick = false;
+    flagPressed = false;
+    timer = setTimeout(() => {
+        isLongClick = true;
+        placeFlag(e, i, j);
+        flagPressed = true;
+    }, threshold);
 }
 
-const handleTouchEnd = (i, j) => {
-  if (timer) {
-    clearTimeout(timer);
-    if (!isLongClick && !flagPressed) {
-        revealCell(i, j);
+const handleTouchEnd = (e, i, j) => {
+    e.preventDefault();
+    if (timer) {
+        clearTimeout(timer);
+        if (!isLongClick && !flagPressed) {
+            revealCell(i, j);
+        }
     }
-  }
 }
 
 const placeMines = () => {
