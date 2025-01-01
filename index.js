@@ -208,6 +208,9 @@ const gameOver = (cellClicked) => {
     cellClicked.classList.add("bomb");
     cellClicked.style.backgroundColor = "red";
 
+    var explosionSound = new Audio("./sounds/explosion.mp3");
+    explosionSound.play();
+
     for (let i = 0; i < size; i++){
         for (let j = 0; j < size; j++){
             const row = document.getElementsByTagName("tr")[i];
