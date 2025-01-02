@@ -381,6 +381,8 @@ const displayRules = () => {
 
 const hideRulesHandler = (e) => {
     const modal = document.getElementById("rules"); 
+    const closeButton = document.getElementsByClassName("close")[0];
+
     if (e.target !== rulesButton && (!modal.contains(e.target) || e.target === closeButton)) { 
         hideRules(); 
     }
@@ -395,8 +397,5 @@ const hideRules = () => {
 
 const rulesButton = document.getElementsByTagName("input")[3];
 rulesButton.addEventListener("click", displayRules);
-
-const closeButton = document.getElementsByClassName("close")[0];
-closeButton.addEventListener("click", hideRules);
 
 createGrid();
