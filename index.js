@@ -285,14 +285,13 @@ const gameOver = (cellClicked) => {
         }
     }
 
-    const gameLost = document.getElementsByClassName("game-over")[0];
-    gameLost.style.display = "block";
-
     revealedCells = 0;
     flagsPlaced = 0;
 
-    const playAgain = document.getElementsByTagName("input")[4];
-    playAgain.addEventListener("click", resetGame);
+    const modal = document.getElementsByClassName("modal")[0];
+    modal.style.display = "block";
+
+    document.addEventListener("click", resetGameLostHandler);
 
     clearInterval(timerInterval);
     timerInterval = null;
@@ -307,11 +306,10 @@ const gameWon = () => {
         }
     }
 
-    const gameWin = document.getElementsByClassName("game-win")[0];
-    gameWin.style.display = "block";
+    const modal = document.getElementsByClassName("modal")[1];
+    modal.style.display = "block";
 
-    const playAgain = document.getElementsByTagName("input")[5];
-    playAgain.addEventListener("click", resetGame);
+    document.addEventListener("click", resetGameWinHandler);
 
     revealedCells = 0;
     flagsPlaced = 0;
@@ -320,16 +318,38 @@ const gameWon = () => {
     timerInterval = null;
 }
 
+const resetGameLostHandler = (e) => {
+    const lostModal = document.getElementsByClassName("game-over")[0]; 
+    const lostCloseButton = document.getElementsByClassName("close")[0];
+    const playAgainLost = document.getElementById("playAgainLost");
+
+    if (!lostModal.contains(e.target) || e.target === lostCloseButton || e.target === playAgainLost) {
+        document.removeEventListener("click", resetGameLostHandler);
+        resetGame();
+    }
+}
+
+const resetGameWinHandler = (e) => {
+    const wonModal = document.getElementsByClassName("game-win")[0]; 
+    const wonCloseButton = document.getElementsByClassName("close")[1];
+    const playAgainWon = document.getElementById("playAgainWon");
+
+    if (!wonModal.contains(e.target) || e.target === wonCloseButton || e.target === playAgainWon) {
+        document.removeEventListener("click", resetGameWinHandler);
+        resetGame();
+    }
+}
+
 const resetGame = () => {
+    const lostModal = document.getElementsByClassName("modal")[0];
+    lostModal.style.display = "none";
+
+    const wonModal = document.getElementsByClassName("modal")[1];
+    wonModal.style.display = "none";
+
     const table = document.getElementsByTagName("table")[0];
     table.innerHTML = "";
     createGrid();
-
-    const gameLost = document.getElementsByClassName("game-over")[0];
-    gameLost.style.display = "none";
-
-    const gameWin = document.getElementsByClassName("game-win")[0];
-    gameWin.style.display = "none";
 
     revealedCells = 0;
     flagsPlaced = 0;
@@ -373,7 +393,7 @@ const startTimer = () => {
 }
 
 const displayRules = () => {
-    const modal = document.getElementsByClassName("modal")[0];
+    const modal = document.getElementsByClassName("modal")[2];
     modal.style.display = "block";
 
     document.addEventListener("click", hideRulesHandler);
@@ -381,7 +401,7 @@ const displayRules = () => {
 
 const hideRulesHandler = (e) => {
     const modal = document.getElementById("rules"); 
-    const closeButton = document.getElementsByClassName("close")[0];
+    const closeButton = document.getElementsByClassName("close")[2];
 
     if (e.target !== rulesButton && (!modal.contains(e.target) || e.target === closeButton)) { 
         hideRules(); 
@@ -389,7 +409,7 @@ const hideRulesHandler = (e) => {
 }
 
 const hideRules = () => {
-    const modal = document.getElementsByClassName("modal")[0];
+    const modal = document.getElementsByClassName("modal")[2];
     modal.style.display = "none";
 
     document.removeEventListener("click", hideRules);
