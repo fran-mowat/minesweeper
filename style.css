@@ -182,11 +182,11 @@ input[type="text"]{
 
 @media (min-width: 500px) {
     .game-over, .game-win{
-        margin: 25%;
+        margin: 15%;
     }
 }
 
-@media (min-width: 805px) {
+@media (min-width: 900px) {
     .game-over, .game-win{
         margin: 15% 25%;
     }
@@ -197,12 +197,22 @@ input[type="text"]{
 }
 
 .username-entry{
+    margin: 35px 0;
+}
+
+.flex-container{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     gap: 10px;
     margin: 20px 0;
+}
+
+@media (min-width: 600px) {
+    .flex-container{
+        flex-direction: row;
+    }
 }
 
 #rules p{
