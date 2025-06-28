@@ -136,18 +136,6 @@ input[type="button"]:hover{
     padding: 5px 20px;
 }
 
-.game-over, .game-win{
-    display: none;
-    margin: 20px;
-}
-
-@media (min-width: 805px) {
-    .game-over, .game-win{
-        width: fit-content;
-        margin: auto;
-    }
-}
-
 .modal{
     display: none;
     position: fixed;
@@ -170,9 +158,11 @@ input[type="button"]:hover{
     filter: brightness(0);
 }
 
-#rules{
+#rules, .game-over, .game-win{
     position: absolute;
     top: 0;
+    left: 0;
+    right: 0;
     margin: 5%;
     padding: 5px 10px 5px 20px;
     border: 1px solid #444;
@@ -181,7 +171,22 @@ input[type="button"]:hover{
     box-shadow: 2px 2px 10px #444;
 }
 
+.game-over, .game-win{
+    margin: 15%;
+    padding: 15px 20px 20px 30px;
+}
+
+@media (min-width: 500px) {
+    .game-over, .game-win{
+        margin: 25%;
+    }
+}
+
 @media (min-width: 805px) {
+    .game-over, .game-win{
+        margin: 15% 25%;
+    }
+
     #rules{
         margin: 5% 15%;
     }
