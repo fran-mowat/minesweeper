@@ -140,6 +140,10 @@ input[type="text"]{
     padding: 5px 20px;
 }
 
+input[type="radio"]{
+    accent-color: #444;
+}
+
 .modal{
     display: none;
     position: fixed;
