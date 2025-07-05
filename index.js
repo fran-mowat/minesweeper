@@ -458,7 +458,7 @@ const hideLeaderboard = () => {
 };
 
 const getLeaderboard = async (gameMode) => {
-    const { data, error } = await supabaseClient.from("Leaderboard").select().eq("gameMode", gameMode).order("time", { ascending: true });
+    const { data, error } = await supabaseClient.from("Leaderboard").select().eq("gameMode", gameMode).order("time", { ascending: true }).limit(10);
     console.log(data, error);
 
     const leaderboardTable = document.getElementsByTagName("table")[1];
@@ -481,11 +481,6 @@ const getLeaderboard = async (gameMode) => {
 
         leaderboardTable.appendChild(row);
     }
-};
-
-const getLeaderboardTop = async (gameMode) => {
-    const { data, error } = await supabaseClient.from("Leaderboard").select().eq("gameMode", gameMode).order("time", { ascending: true }).limit(1);
-    console.log(data, error);
 };
 
 const addScoreToLeaderboard = async () => {
