@@ -323,7 +323,7 @@ const gameWon = () => {
 const resetGameLostHandler = (e) => {
     const lostModal = document.getElementsByClassName("game-over")[0]; 
     const lostCloseButton = document.getElementsByClassName("close")[0];
-    const playAgainLost = document.getElementById("playAgainLost");
+    const playAgainLost = document.getElementById("play-again-lost");
 
     if (!lostModal.contains(e.target) || e.target === lostCloseButton || e.target === playAgainLost) {
         document.removeEventListener("click", resetGameLostHandler);
@@ -334,7 +334,7 @@ const resetGameLostHandler = (e) => {
 const resetGameWinHandler = (e) => {
     const wonModal = document.getElementsByClassName("game-win")[0]; 
     const wonCloseButton = document.getElementsByClassName("close")[1];
-    const playAgainWon = document.getElementById("playAgainWon");
+    const playAgainWon = document.getElementById("play-again-won");
 
     if (!wonModal.contains(e.target) || e.target === wonCloseButton || e.target === playAgainWon) {
         document.removeEventListener("click", resetGameWinHandler);
@@ -436,7 +436,7 @@ const addScoreToLeaderboard = async () => {
     console.log(error);
 };
 
-const leaderboardButton = document.getElementById("joinLeaderboard");
+const leaderboardButton = document.getElementById("join-leaderboard");
 leaderboardButton.addEventListener("click", addScoreToLeaderboard);
 
 const rulesButton = document.getElementsByTagName("input")[3];
