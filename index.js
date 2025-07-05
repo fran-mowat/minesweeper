@@ -497,6 +497,20 @@ const addScoreToLeaderboard = async () => {
     console.log(error);
 };
 
+const checkBrowserWidth = () => {
+    const center = document.getElementsByClassName("center")[0];
+    const right = document.getElementsByClassName("right")[0];
+    const main = document.getElementsByClassName("main")[0];
+
+    if (right.offsetTop > center.offsetTop){
+        main.classList.add("flexed");
+    } else {
+        main.classList.remove("flexed");
+    }
+
+    console.log(main.classList);
+};
+
 const joinLeaderboard = document.getElementById("join-leaderboard");
 joinLeaderboard.addEventListener("click", addScoreToLeaderboard);
 
@@ -507,3 +521,6 @@ const viewLeaderboard = document.getElementById("view-leaderboard");
 viewLeaderboard.addEventListener("click", displayLeaderboard);
 
 createGrid();
+
+checkBrowserWidth();
+window.addEventListener("resize", checkBrowserWidth);

@@ -7,41 +7,34 @@ html{
 }
 
 h1{
+    margin: 40px auto;
     text-align: center;
 }
 
 .main{
-    display: block;
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 0 30px;
 }
 
-.center{
-    width: fit-content;
+.main.flexed{
+    justify-content: flex-start;
+    margin: 0;
+}
+
+.main.flexed .center{
     margin: auto;
 }
 
 .right{
-    margin: 25px 0 0 25px;
+    min-width: 190px;
 }
 
-@media (min-width: 805px) {
-    .main{
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-    }
-    
-    .left, .right{
-        width: 20vw;
-        margin: 0;
-    }
-
-    .center{
-        margin: 0;
-    }
-
-    .right{
-        margin-left: 20px;
-    }
+.main.flexed .right{
+    margin: 0 30px 50px;
 }
 
 table, td, th{
