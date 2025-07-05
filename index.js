@@ -116,8 +116,6 @@ const placeMines = () => {
 const setBombCounts = () => {
     const gameGrid = document.getElementById("game-grid");
     const rows = gameGrid.children;
-    console.log(rows.length);
-    console.log(rows);
 
     for (let i = 0; i < rows.length; i++){
         const row = rows[i];
@@ -425,6 +423,15 @@ const displayLeaderboard = () => {
     const modal = document.getElementsByClassName("modal")[3];
     modal.style.display = "block";
 
+    let gameMode = document.querySelector('input[name="game-mode"]:checked').value;
+
+    const leaderboardGameMode = document.getElementById("leaderboard-game-mode");
+    leaderboardGameMode.innerHTML = gameMode; 
+
+    let results = getLeaderboard(gameMode);
+
+    console.log(results);
+
     document.addEventListener("click", hideLeaderboardHandler);
 };
 
@@ -442,11 +449,38 @@ const hideLeaderboard = () => {
     modal.style.display = "none";
 
     document.removeEventListener("click", hideLeaderboard);
+
+    const leaderboardTable = document.getElementsByTagName("table")[1];
+
+    while (leaderboardTable.children.length > 1){
+        leaderboardTable.removeChild(leaderboardTable.lastElementChild);
+    }
 };
 
 const getLeaderboard = async (gameMode) => {
-    const { data, error } = await supabaseClient.from("Leaderboard").select().eq("gameMode", gameMode);
+    const { data, error } = await supabaseClient.from("Leaderboard").select().eq("gameMode", gameMode).order("time", { ascending: true });
     console.log(data, error);
+
+    const leaderboardTable = document.getElementsByTagName("table")[1];
+
+    for (i in data){
+        let row = document.createElement("tr");
+
+        let td1 = document.createElement("td");
+        td1.innerHTML = parseInt(i) + 1; 
+
+        let td2 = document.createElement("td");
+        td2.innerHTML = data[i].username; 
+
+        let td3 = document.createElement("td");
+        td3.innerHTML = data[i].time; 
+
+        row.appendChild(td1);
+        row.appendChild(td2);
+        row.appendChild(td3);
+
+        leaderboardTable.appendChild(row);
+    }
 };
 
 const getLeaderboardTop = async (gameMode) => {
