@@ -335,8 +335,9 @@ const resetGameWinHandler = (e) => {
     const wonModal = document.getElementsByClassName("game-win")[0]; 
     const wonCloseButton = document.getElementsByClassName("close")[1];
     const playAgainWon = document.getElementById("play-again-won");
+    const joinLeaderboard = document.getElementById("join-leaderboard");
 
-    if (!wonModal.contains(e.target) || e.target === wonCloseButton || e.target === playAgainWon) {
+    if (!wonModal.contains(e.target) || e.target === wonCloseButton || e.target === playAgainWon || e.target === joinLeaderboard) {
         document.removeEventListener("click", resetGameWinHandler);
         resetGame();
     }
@@ -434,6 +435,8 @@ const addScoreToLeaderboard = async () => {
     
     const error = await supabaseClient.from("Leaderboard").insert({ id: undefined, gameMode: gameMode, time: time, username: username });
     console.log(error);
+
+
 };
 
 const leaderboardButton = document.getElementById("join-leaderboard");
