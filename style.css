@@ -230,6 +230,14 @@ input[type="radio"]{
 
 #leaderboard{
     padding: 10px 10px 35px 40px;
+    margin: 5%;
+}
+
+@media (min-width: 700px) {
+    #leaderboard{
+        margin: 5% auto;
+        max-width: 550px;
+    }
 }
 
 #leaderboard p{
