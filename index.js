@@ -1,3 +1,5 @@
+const supabaseClient = supabase.createClient(CONFIG.SUPABASE_API_URL, CONFIG.SUPABASE_API_KEY);
+
 let revealedCells = 0;
 let flagsPlaced = 0;
 let bombCount = 40; 
@@ -45,7 +47,7 @@ const createGrid = () => {
 
     placeMines();
     setBombCounts();
-}
+};
 
 const handleMouseDown = (e, i, j) => {
     if (e.button !== 0) return;
@@ -64,13 +66,13 @@ const handleMouseUp = (e, i, j) => {
             revealCell(i, j);
         }
     }
-}
+};
 
 const handleMouseLeave = () => {
     if (timer) {
         clearTimeout(timer);
     }
-}
+};
 
 const handleTouchStart = (e, i, j) => {
     e.preventDefault();
@@ -81,7 +83,7 @@ const handleTouchStart = (e, i, j) => {
         placeFlag(e, i, j);
         flagPressed = true;
     }, threshold);
-}
+};
 
 const handleTouchEnd = (e, i, j) => {
     e.preventDefault();
@@ -91,7 +93,7 @@ const handleTouchEnd = (e, i, j) => {
             revealCell(i, j);
         }
     }
-}
+};
 
 const placeMines = () => {
     const table = document.getElementsByTagName("table")[0];
@@ -109,7 +111,7 @@ const placeMines = () => {
             bombs++; 
         }
     }
-}
+};
 
 const setBombCounts = () => {
     const rows = document.getElementsByTagName("tr");
@@ -181,7 +183,7 @@ const setBombCounts = () => {
             }
         }
     }
-}
+};
 
 const revealCell = (x, y) => {
     const rows = document.getElementsByTagName("tr");
@@ -232,7 +234,7 @@ const revealCell = (x, y) => {
             }
         }
     }
-}
+};
 
 const placeFlag = (e, i, j) => {
     e.preventDefault(); 
@@ -259,7 +261,7 @@ const placeFlag = (e, i, j) => {
     if ((revealedCells === (size * size) - bombCount) && flagsPlaced === bombCount){
         gameWon();
     }
-}
+};
 
 const gameOver = (cellClicked) => {
     cellClicked.classList.add("bomb");
@@ -295,7 +297,7 @@ const gameOver = (cellClicked) => {
 
     clearInterval(timerInterval);
     timerInterval = null;
-}
+};
 
 const gameWon = () => {
     for (let i = 0; i < size; i++){
@@ -316,7 +318,7 @@ const gameWon = () => {
 
     clearInterval(timerInterval);
     timerInterval = null;
-}
+};
 
 const resetGameLostHandler = (e) => {
     const lostModal = document.getElementsByClassName("game-over")[0]; 
@@ -327,7 +329,7 @@ const resetGameLostHandler = (e) => {
         document.removeEventListener("click", resetGameLostHandler);
         resetGame();
     }
-}
+};
 
 const resetGameWinHandler = (e) => {
     const wonModal = document.getElementsByClassName("game-win")[0]; 
@@ -338,7 +340,7 @@ const resetGameWinHandler = (e) => {
         document.removeEventListener("click", resetGameWinHandler);
         resetGame();
     }
-}
+};
 
 const resetGame = () => {
     const lostModal = document.getElementsByClassName("modal")[0];
@@ -353,7 +355,7 @@ const resetGame = () => {
 
     revealedCells = 0;
     flagsPlaced = 0;
-}
+};
 
 const changeSize = () => {
     const selectedMode = document.querySelector('input[name="game-mode"]:checked').value;
@@ -377,7 +379,7 @@ const changeSize = () => {
     timer.innerHTML = "00:00";
 
     resetGame();
-}
+};
 
 const startTimer = () => {
     const timer = document.getElementById("time");
@@ -390,14 +392,14 @@ const startTimer = () => {
 
         timer.textContent = (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
     }, 200);
-}
+};
 
 const displayRules = () => {
     const modal = document.getElementsByClassName("modal")[2];
     modal.style.display = "block";
 
     document.addEventListener("click", hideRulesHandler);
-}
+};
 
 const hideRulesHandler = (e) => {
     const modal = document.getElementById("rules"); 
@@ -406,14 +408,29 @@ const hideRulesHandler = (e) => {
     if (e.target !== rulesButton && (!modal.contains(e.target) || e.target === closeButton)) { 
         hideRules(); 
     }
-}
+};
 
 const hideRules = () => {
     const modal = document.getElementsByClassName("modal")[2];
     modal.style.display = "none";
 
     document.removeEventListener("click", hideRules);
-}
+};
+
+const getLeaderboard = async (gameMode) => {
+    const { data, error } = await supabaseClient.from("Leaderboard").select().eq("gameMode", gameMode);
+    console.log(data, error);
+};
+
+const getLeaderboardTop = async (gameMode) => {
+    const { data, error } = await supabaseClient.from("Leaderboard").select().eq("gameMode", gameMode).order("time", { ascending: true }).limit(1);
+    console.log(data, error);
+};
+
+const addScoreToLeaderboard = async (gameMode, time, username) => {
+    const error = await supabaseClient.from("Leaderboard").insert({ id: undefined, gameMode: gameMode, time: time, username: username });
+    console.log(error);
+};
 
 const rulesButton = document.getElementsByTagName("input")[3];
 rulesButton.addEventListener("click", displayRules);
