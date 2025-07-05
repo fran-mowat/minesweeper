@@ -37,8 +37,8 @@ const createGrid = () => {
     const bombCounter = document.getElementsByTagName("span")[0];
     bombCounter.innerHTML = bombCount;
 
-    const timer = document.getElementById("time");
-    timer.innerHTML = "00:00";
+    const timerText = document.getElementById("time");
+    timerText.innerHTML = "00:00";
 
     const gameMode = document.getElementsByName("game-mode");
     for (let i = 0; i < gameMode.length; i++){
@@ -374,15 +374,15 @@ const changeSize = () => {
             break;
     }
 
-    const timer = document.getElementById("time");
+    const timerText = document.getElementById("time");
     clearInterval(timerInterval);
-    timer.innerHTML = "00:00";
+    timerText.innerHTML = "00:00";
 
     resetGame();
 };
 
 const startTimer = () => {
-    const timer = document.getElementById("time");
+    const timerText = document.getElementById("time");
 
     const start = Date.now();
     timerInterval = setInterval(function() {
@@ -390,7 +390,7 @@ const startTimer = () => {
         let minutes = Math.floor(secondsElapsed / 60);
         let seconds = secondsElapsed % 60;
 
-        timer.textContent = (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+        timerText.textContent = (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
     }, 200);
 };
 
@@ -427,10 +427,17 @@ const getLeaderboardTop = async (gameMode) => {
     console.log(data, error);
 };
 
-const addScoreToLeaderboard = async (gameMode, time, username) => {
+const addScoreToLeaderboard = async () => {
+    let gameMode = document.querySelector('input[name="game-mode"]:checked').value;
+    let time = document.getElementById("time").innerHTML;
+    let username = document.getElementById("username").value;
+    
     const error = await supabaseClient.from("Leaderboard").insert({ id: undefined, gameMode: gameMode, time: time, username: username });
     console.log(error);
 };
+
+const leaderboardButton = document.getElementById("joinLeaderboard");
+leaderboardButton.addEventListener("click", addScoreToLeaderboard);
 
 const rulesButton = document.getElementsByTagName("input")[3];
 rulesButton.addEventListener("click", displayRules);
