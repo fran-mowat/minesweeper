@@ -227,3 +227,16 @@ input[type="radio"]{
 #rules h3, #rules h4{
     margin-bottom: 10px;
 }
+
+#leaderboard{
+    padding: 10px 10px 35px 40px;
+}
+
+#leaderboard p{
+    font-size: 20px;
+    margin: 25px 0;
+}
+
+#leaderboard th, #leaderboard td{
+    padding: 10px;
+}
