@@ -409,7 +409,7 @@ const hideRulesHandler = (e) => {
     const modal = document.getElementById("rules"); 
     const closeButton = document.getElementsByClassName("close")[2];
 
-    if (e.target !== rulesButton && (!modal.contains(e.target) || e.target === closeButton)) { 
+    if (e.target !== viewRules && (!modal.contains(e.target) || e.target === closeButton)) { 
         hideRules(); 
     }
 };
@@ -419,6 +419,29 @@ const hideRules = () => {
     modal.style.display = "none";
 
     document.removeEventListener("click", hideRules);
+};
+
+const displayLeaderboard = () => {
+    const modal = document.getElementsByClassName("modal")[3];
+    modal.style.display = "block";
+
+    document.addEventListener("click", hideLeaderboardHandler);
+};
+
+const hideLeaderboardHandler = (e) => {
+    const modal = document.getElementById("leaderboard"); 
+    const closeButton = document.getElementsByClassName("close")[3];
+
+    if (e.target !== viewLeaderboard && (!modal.contains(e.target) || e.target === closeButton)) { 
+        hideLeaderboard(); 
+    }
+};
+
+const hideLeaderboard = () => {
+    const modal = document.getElementsByClassName("modal")[3];
+    modal.style.display = "none";
+
+    document.removeEventListener("click", hideLeaderboard);
 };
 
 const getLeaderboard = async (gameMode) => {
@@ -438,14 +461,15 @@ const addScoreToLeaderboard = async () => {
     
     const error = await supabaseClient.from("Leaderboard").insert({ id: undefined, gameMode: gameMode, time: time, username: username });
     console.log(error);
-
-
 };
 
-const leaderboardButton = document.getElementById("join-leaderboard");
-leaderboardButton.addEventListener("click", addScoreToLeaderboard);
+const joinLeaderboard = document.getElementById("join-leaderboard");
+joinLeaderboard.addEventListener("click", addScoreToLeaderboard);
 
-const rulesButton = document.getElementsByTagName("input")[3];
-rulesButton.addEventListener("click", displayRules);
+const viewRules = document.getElementById("view-rules");
+viewRules.addEventListener("click", displayRules);
+
+const viewLeaderboard = document.getElementById("view-leaderboard");
+viewLeaderboard.addEventListener("click", displayLeaderboard);
 
 createGrid();

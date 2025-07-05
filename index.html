@@ -24,18 +24,18 @@
             <p>Bombs remaining: <span>40</span></p>
             <p id="time">00:00</p>
             <p>Game mode:</p>
-            <input type="radio" name="game-mode" value="beginner"/>
+            <input type="radio" name="game-mode" value="beginner" />
             <label for="beginner">Beginner</label>
             <br>
-            <input type="radio" name="game-mode" value="intermediate" checked/>
+            <input type="radio" name="game-mode" value="intermediate" checked />
             <label for="intermediate">Intermediate</label>
             <br>
-            <input type="radio" name="game-mode" value="expert"/>
+            <input type="radio" name="game-mode" value="expert" />
             <label for="expert">Expert</label>
             <br><br>
-            <input type="button" value="Rules"/>
+            <input type="button" value="Rules" id="view-rules" />
             <br><br>
-            <input type="button" value="View Leaderboard">
+            <input type="button" value="View Leaderboard" id="view-leaderboard" />
         </div>
     </div>
 
@@ -76,7 +76,7 @@
         </div>
     </div>
 
-    <div class="modal" style="display: block;">
+    <div class="modal">
         <div id="leaderboard">
             <img src="./images/exit.svg" alt="exit icon" class="close">
             <p>Leaderboard</p>
