@@ -114,7 +114,10 @@ const placeMines = () => {
 };
 
 const setBombCounts = () => {
-    const rows = document.getElementsByTagName("tr");
+    const gameGrid = document.getElementById("game-grid");
+    const rows = gameGrid.children;
+    console.log(rows.length);
+    console.log(rows);
 
     for (let i = 0; i < rows.length; i++){
         const row = rows[i];
