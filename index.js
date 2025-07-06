@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 const supabaseClient = supabase.createClient(secrets.SUPABASE_API_URL, secrets.SUPABASE_API_KEY);
-=======
-const supabaseClient = supabase.createClient(SUPABASE_API_URL, SUPABASE_API_KEY);
->>>>>>> 47954b8c1fe1fd8cd1889fb93bcc572be0555dc6
 
 let revealedCells = 0;
 let flagsPlaced = 0;
