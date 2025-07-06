@@ -23,18 +23,18 @@
             <p>Bombs remaining: <span>40</span></p>
             <p id="time">00:00</p>
             <p>Game mode:</p>
-            <input type="radio" name="game-mode" value="beginner" />
+            <input type="radio" name="game-mode" value="beginner" id="beginner">
             <label for="beginner">Beginner</label>
             <br>
-            <input type="radio" name="game-mode" value="intermediate" checked />
+            <input type="radio" name="game-mode" value="intermediate" id="intermediate" checked>
             <label for="intermediate">Intermediate</label>
             <br>
-            <input type="radio" name="game-mode" value="expert" />
+            <input type="radio" name="game-mode" value="expert" id="expert">
             <label for="expert">Expert</label>
             <br><br>
-            <input type="button" value="Rules" id="view-rules" />
+            <input type="button" value="Rules" id="view-rules">
             <br><br>
-            <input type="button" value="View Leaderboard" id="view-leaderboard" />
+            <input type="button" value="View Leaderboard" id="view-leaderboard">
         </div>
     </div>
 
@@ -42,7 +42,7 @@
         <div class="game-over">
             <img src="./images/exit.svg" alt="exit icon" class="close">
             <p>You lose.</p>
-            <input type="button" value="Play Again" id="play-again-lost" />
+            <input type="button" value="Play Again" id="play-again-lost">
         </div>
     </div>
 
@@ -54,13 +54,13 @@
             <div class="username-entry">
                 <p>Enter your name to join the leaderboard:</p>
                 <div class="flex-container">
-                    <input type="text" id="username" required>
+                    <input type="text" id="username" required autocomplete="on">
                     <input type="button" value="Join Leaderboard" id="join-leaderboard">
                 </div>
                 <p class="error">Error: please enter a username.</p>
             </div>
 
-            <input type="button" value="Play Again" id="play-again-won" />
+            <input type="button" value="Play Again" id="play-again-won">
         </div>
     </div>
 
