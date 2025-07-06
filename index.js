@@ -338,7 +338,7 @@ const resetGameWinHandler = (e) => {
     const playAgainWon = document.getElementById("play-again-won");
     const joinLeaderboard = document.getElementById("join-leaderboard");
 
-    if (!wonModal.contains(e.target) || e.target === wonCloseButton || e.target === playAgainWon || e.target === joinLeaderboard) {
+    if (!wonModal.contains(e.target) || e.target === wonCloseButton || e.target === playAgainWon) {
         document.removeEventListener("click", resetGameWinHandler);
         resetGame();
     }
@@ -484,25 +484,43 @@ const getLeaderboard = async (gameMode) => {
 const addScoreToLeaderboard = async () => {
     let gameMode = document.querySelector('input[name="game-mode"]:checked').value;
     let time = document.getElementById("time").innerHTML;
-    let username = document.getElementById("username").value;
-    
-    const error = await supabaseClient.from("Leaderboard").insert({ id: undefined, gameMode: gameMode, time: time, username: username });
-    console.log(error);
+    let username = usernameField.value;
 
-    const toastConfirmation = document.getElementsByClassName("toast")[0];
-    toastConfirmation.classList.add("show");
-    setTimeout(() => {
-        toastConfirmation.classList.remove("show"); 
-    }, 3000);
+    const errorMessage = document.getElementsByClassName("error")[0];
+
+    if (username.length === 0){
+        errorMessage.classList.add("show");
+    } else {
+        errorMessage.classList.remove("show");
+
+        const error = await supabaseClient.from("Leaderboard").insert({ id: undefined, gameMode: gameMode, time: time, username: username });
+
+        const toastConfirmation = document.getElementsByClassName("toast")[0];
+
+        if (error.status === 201){
+            toastConfirmation.innerHTML = "Score added to leaderboard.";
+        } else {
+            toastConfirmation.innerHTML = "Error adding score to leaderboard.";
+        }
+
+        toastConfirmation.classList.add("show");
+        setTimeout(() => {
+            toastConfirmation.classList.remove("show"); 
+        }, 3000);
+    }
 };
 
-const testToast = () => {
-    const toastConfirmation = document.getElementsByClassName("toast")[0];
-    toastConfirmation.classList.add("show");
-    setTimeout(() => {
-        toastConfirmation.classList.remove("show"); 
-    }, 3000);
-}
+const checkUsernameInput = () => { 
+    const errorMessage = document.getElementsByClassName("error")[0];
+
+    if (usernameField.value.length > 0){
+        errorMessage.classList.remove("show")
+    } else {
+        errorMessage.classList.add("show");
+    }
+
+    console.log(usernameField.value.length);
+};
 
 const checkBrowserWidth = () => {
     const center = document.getElementsByClassName("center")[0];
@@ -514,8 +532,6 @@ const checkBrowserWidth = () => {
     } else {
         main.classList.remove("flexed");
     }
-
-    console.log(main.classList);
 };
 
 const joinLeaderboard = document.getElementById("join-leaderboard");
@@ -526,6 +542,9 @@ viewRules.addEventListener("click", displayRules);
 
 const viewLeaderboard = document.getElementById("view-leaderboard");
 viewLeaderboard.addEventListener("click", displayLeaderboard);
+
+const usernameField = document.getElementById("username");
+usernameField.addEventListener("input", checkUsernameInput);
 
 createGrid();
 

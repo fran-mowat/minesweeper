@@ -212,6 +212,16 @@ input[type="radio"]{
     }
 }
 
+.error{
+    display: none;
+    font-size: 16px;
+    color: #cf3b3b;
+}
+
+.error.show{
+    display: block;
+}
+
 #rules p{
     margin-right: 20px;
     line-height: 1.2;

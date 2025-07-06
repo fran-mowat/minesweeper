@@ -46,7 +46,7 @@
         </div>
     </div>
 
-    <div class="modal">
+    <div class="modal" style="display: block;">
         <div class="game-win">
             <img src="./images/exit.svg" alt="exit icon" class="close">
             <p>You win!</p>
@@ -54,9 +54,10 @@
             <div class="username-entry">
                 <p>Enter your name to join the leaderboard:</p>
                 <div class="flex-container">
-                    <input type="text" id="username">
+                    <input type="text" id="username" required>
                     <input type="button" value="Join Leaderboard" id="join-leaderboard">
                 </div>
+                <p class="error">Error: please enter a username.</p>
             </div>
 
             <input type="button" value="Play Again" id="play-again-won" />
@@ -90,7 +91,7 @@
         </div>
     </div>
 
-    <div class="toast">Score added to leaderboard.</div>
+    <div class="toast"></div>
 
 </body>
 </html>
