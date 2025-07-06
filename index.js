@@ -457,27 +457,36 @@ const hideLeaderboard = () => {
 
 const getLeaderboard = async (gameMode) => {
     const { data, error } = await supabaseClient.from("Leaderboard").select().eq("gameMode", gameMode).order("time", { ascending: true }).limit(10);
-    console.log(data, error);
+    
+    const toastConfirmation = document.getElementsByClassName("toast")[0];
 
-    const leaderboardTable = document.getElementsByTagName("table")[1];
+    if (error !== null){
+        toastConfirmation.innerHTML = "Error retrieving leaderboard.";
+        displayToast();
+    } else if (data.length === 0){
+        toastConfirmation.innerHTML = "No scores found on leaderboard.";
+        displayToast(); 
+    } else {
+        const leaderboardTable = document.getElementsByTagName("table")[1];
 
-    for (i in data){
-        let row = document.createElement("tr");
+        for (i in data){
+            let row = document.createElement("tr");
 
-        let td1 = document.createElement("td");
-        td1.innerHTML = parseInt(i) + 1; 
+            let td1 = document.createElement("td");
+            td1.innerHTML = parseInt(i) + 1; 
 
-        let td2 = document.createElement("td");
-        td2.innerHTML = data[i].username; 
+            let td2 = document.createElement("td");
+            td2.innerHTML = data[i].username; 
 
-        let td3 = document.createElement("td");
-        td3.innerHTML = data[i].time; 
+            let td3 = document.createElement("td");
+            td3.innerHTML = data[i].time; 
 
-        row.appendChild(td1);
-        row.appendChild(td2);
-        row.appendChild(td3);
+            row.appendChild(td1);
+            row.appendChild(td2);
+            row.appendChild(td3);
 
-        leaderboardTable.appendChild(row);
+            leaderboardTable.appendChild(row);
+        }
     }
 };
 
@@ -503,12 +512,18 @@ const addScoreToLeaderboard = async () => {
             toastConfirmation.innerHTML = "Error adding score to leaderboard.";
         }
 
-        toastConfirmation.classList.add("show");
-        setTimeout(() => {
-            toastConfirmation.classList.remove("show"); 
-        }, 3000);
+        displayToast();
     }
 };
+
+const displayToast = () => {
+    const toastConfirmation = document.getElementsByClassName("toast")[0];
+
+    toastConfirmation.classList.add("show");
+    setTimeout(() => {
+        toastConfirmation.classList.remove("show"); 
+    }, 3000);
+}
 
 const checkUsernameInput = () => { 
     const errorMessage = document.getElementsByClassName("error")[0];
@@ -518,8 +533,6 @@ const checkUsernameInput = () => {
     } else {
         errorMessage.classList.add("show");
     }
-
-    console.log(usernameField.value.length);
 };
 
 const checkBrowserWidth = () => {
