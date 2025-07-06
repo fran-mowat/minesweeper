@@ -1,4 +1,4 @@
-const supabaseClient = supabase.createClient(CONFIG.SUPABASE_API_URL, CONFIG.SUPABASE_API_KEY);
+const supabaseClient = supabase.createClient(secrets.SUPABASE_API_URL, secrets.SUPABASE_API_KEY);
 
 let revealedCells = 0;
 let flagsPlaced = 0;
