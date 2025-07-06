@@ -1,15 +1,3 @@
-const supabaseClient = supabase.createClient(secrets.SUPABASE_API_URL, secrets.SUPABASE_API_KEY);
-
-let revealedCells = 0;
-let flagsPlaced = 0;
-let bombCount = 40; 
-let size = 16;
-let timerInterval;
-let timer;
-let isLongClick = false;
-let flagPressed = false;
-const threshold = 500;
-
 const createGrid = () => {
     const table = document.getElementsByTagName("table")[0];
     for (let i = 0; i < size; i++){
@@ -546,6 +534,18 @@ const checkBrowserWidth = () => {
         main.classList.remove("flexed");
     }
 };
+
+let revealedCells = 0;
+let flagsPlaced = 0;
+let bombCount = 40; 
+let size = 16;
+let timerInterval;
+let timer;
+let isLongClick = false;
+let flagPressed = false;
+const threshold = 500;
+
+const supabaseClient = supabase.createClient("https://jrqldcefvhfgzzsiaxjl.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpycWxkY2VmdmhmZ3p6c2lheGpsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTExMjUyNTQsImV4cCI6MjA2NjcwMTI1NH0.qfqEUYlWtb__k9YnX0CS2szDj3Mb9TzTu-FsfCPJYPc");
 
 const joinLeaderboard = document.getElementById("join-leaderboard");
 joinLeaderboard.addEventListener("click", addScoreToLeaderboard);
