@@ -430,8 +430,6 @@ const displayLeaderboard = () => {
 
     let results = getLeaderboard(gameMode);
 
-    console.log(results);
-
     document.addEventListener("click", hideLeaderboardHandler);
 };
 
@@ -490,7 +488,21 @@ const addScoreToLeaderboard = async () => {
     
     const error = await supabaseClient.from("Leaderboard").insert({ id: undefined, gameMode: gameMode, time: time, username: username });
     console.log(error);
+
+    const toastConfirmation = document.getElementsByClassName("toast")[0];
+    toastConfirmation.classList.add("show");
+    setTimeout(() => {
+        toastConfirmation.classList.remove("show"); 
+    }, 3000);
 };
+
+const testToast = () => {
+    const toastConfirmation = document.getElementsByClassName("toast")[0];
+    toastConfirmation.classList.add("show");
+    setTimeout(() => {
+        toastConfirmation.classList.remove("show"); 
+    }, 3000);
+}
 
 const checkBrowserWidth = () => {
     const center = document.getElementsByClassName("center")[0];
