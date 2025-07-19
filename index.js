@@ -498,6 +498,9 @@ const addScoreToLeaderboard = async () => {
 
     if (username.length === 0){
         errorMessage.classList.add("show");
+    } else if (time === "00:00") {
+        toast.innerHTML = "Cannot add invalid score to leaderboard.";
+        displayToast();
     } else {
         usernameField.classList.add("disabled");
         usernameField.setAttribute("disabled", "true");
