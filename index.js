@@ -514,12 +514,14 @@ const displayToast = () => {
 }
 
 const checkUsernameInput = () => { 
-    const errorMessage = document.getElementsByClassName("error")[0];
+    const errorMessage = document.getElementsByClassName("error")[0]; 
 
     if (usernameField.value.length > 0){
-        errorMessage.classList.remove("show")
+        errorMessage.classList.remove("show");
+        joinLeaderboard.classList.remove("disabled");
     } else {
         errorMessage.classList.add("show");
+        joinLeaderboard.classList.add("disabled");
     }
 };
 

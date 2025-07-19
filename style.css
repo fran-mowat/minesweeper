@@ -212,6 +212,11 @@ input[type="radio"]{
     }
 }
 
+#join-leaderboard.disabled{
+    cursor: not-allowed;
+    background-color: #ddd;
+}
+
 .error{
     display: none;
     font-size: 16px;
