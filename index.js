@@ -324,7 +324,6 @@ const resetGameWinHandler = (e) => {
     const wonModal = document.getElementsByClassName("game-win")[0]; 
     const wonCloseButton = document.getElementsByClassName("close")[1];
     const playAgainWon = document.getElementById("play-again-won");
-    const joinLeaderboard = document.getElementById("join-leaderboard");
 
     if (!wonModal.contains(e.target) || e.target === wonCloseButton || e.target === playAgainWon) {
         document.removeEventListener("click", resetGameWinHandler);
@@ -342,6 +341,14 @@ const resetGame = () => {
     const table = document.getElementsByTagName("table")[0];
     table.innerHTML = "";
     createGrid();
+
+    joinLeaderboard.joined = false;
+
+    const errorMessage = document.getElementsByClassName("error")[0];
+    errorMessage.classList.remove("show");
+
+    usernameField.classList.remove("disabled");
+    usernameField.removeAttribute("disabled");
 
     revealedCells = 0;
     flagsPlaced = 0;
@@ -482,25 +489,41 @@ const addScoreToLeaderboard = async () => {
     let gameMode = document.querySelector('input[name="game-mode"]:checked').value;
     let time = document.getElementById("time").innerHTML;
     let username = usernameField.value;
+    const toast = document.getElementsByClassName("toast")[0];
 
     const errorMessage = document.getElementsByClassName("error")[0];
+
+    joinLeaderboard.classList.add("disabled");
+    joinLeaderboard.setAttribute("disabled", "true");
 
     if (username.length === 0){
         errorMessage.classList.add("show");
     } else {
-        errorMessage.classList.remove("show");
+        usernameField.classList.add("disabled");
+        usernameField.setAttribute("disabled", "true");
 
-        const error = await supabaseClient.from("Leaderboard").insert({ id: undefined, gameMode: gameMode, time: time, username: username });
-
-        const toastConfirmation = document.getElementsByClassName("toast")[0];
-
-        if (error.status === 201){
-            toastConfirmation.innerHTML = "Score added to leaderboard.";
+        if (joinLeaderboard.joined) {
+            toast.innerHTML = "Score already added to leaderboard.";
+            displayToast(); 
         } else {
-            toastConfirmation.innerHTML = "Error adding score to leaderboard.";
-        }
+            errorMessage.classList.remove("show");
+            joinLeaderboard.classList.add("disabled");
+            joinLeaderboard.setAttribute("disabled", "true");
+            usernameField.classList.add("disabled");
+            usernameField.setAttribute("disabled", "true");
+        
+            const error = await supabaseClient.from("Leaderboard").insert({ id: undefined, gameMode: gameMode, time: time, username: username });
 
-        displayToast();
+            joinLeaderboard.joined = true;
+
+            if (error.status === 201){
+                toast.innerHTML = "Score added to leaderboard.";
+            } else {
+                toast.innerHTML = "Error adding score to leaderboard.";
+            }
+
+            displayToast();
+        } 
     }
 };
 
@@ -519,9 +542,11 @@ const checkUsernameInput = () => {
     if (usernameField.value.length > 0){
         errorMessage.classList.remove("show");
         joinLeaderboard.classList.remove("disabled");
+        joinLeaderboard.removeAttribute("disabled");
     } else {
         errorMessage.classList.add("show");
         joinLeaderboard.classList.add("disabled");
+        joinLeaderboard.setAttribute("disabled", "true");
     }
 };
 
@@ -551,6 +576,7 @@ const supabaseClient = supabase.createClient("https://jrqldcefvhfgzzsiaxjl.supab
 
 const joinLeaderboard = document.getElementById("join-leaderboard");
 joinLeaderboard.addEventListener("click", addScoreToLeaderboard);
+joinLeaderboard.joined = false;
 
 const viewRules = document.getElementById("view-rules");
 viewRules.addEventListener("click", displayRules);
