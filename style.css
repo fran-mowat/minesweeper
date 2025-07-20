@@ -17,7 +17,7 @@ h1{
     gap: 25px;
     justify-content: center;
     flex-wrap: wrap;
-    margin: 0 30px;
+    margin: 0 30px 50px;
 }
 
 .main.flexed{
@@ -37,6 +37,28 @@ h1{
     margin: 0 30px 50px;
 }
 
+table{
+    table-layout: fixed;
+    max-width: min(100vw, 100vh);
+    max-height: min(100vw, 100vh);
+    width: 100%;
+}
+
+table.beginner{
+    max-width: 300px;
+    max-height: 300px;
+}
+
+table.intermediate{
+    max-width: 460px;
+    max-height: 460px;
+}
+
+table.expert{
+    max-width: 650px;
+    max-height: 650px;
+}
+
 table, td, th{
     border: 1px solid black;
     border-collapse: collapse;
@@ -44,13 +66,21 @@ table, td, th{
 }
 
 td{
-    height: 18px;
-    width: 18px;
-    padding: 3px;
     background-size: 14px;
+    font-size: 16px;
     background-repeat: no-repeat;
     background-position: center;
     text-align: center;
+}
+
+#game-grid.small td{
+    background-size: 10px;
+    font-size: 12px;
+}
+
+#game-grid.large td{
+    background-size: 16px;
+    font-size: 18px;
 }
 
 td.bomb{

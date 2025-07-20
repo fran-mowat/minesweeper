@@ -22,6 +22,8 @@ const createGrid = () => {
         table.appendChild(row);
     }
 
+    setCellHeights();
+
     const bombCounter = document.getElementsByTagName("span")[0];
     bombCounter.innerHTML = bombCount;
 
@@ -363,7 +365,7 @@ const changeSize = () => {
             break;
         case "intermediate":
             bombCount = 30; 
-            size = 15;
+            size = 16;
             break; 
         case "expert":
             bombCount = 50; 
@@ -374,6 +376,14 @@ const changeSize = () => {
     const timerText = document.getElementById("time");
     clearInterval(timerInterval);
     timerText.innerHTML = "00:00";
+
+    const gameGrid = document.getElementById("game-grid");
+    const gameModes = ["beginner", "intermediate", "expert"];
+    gameModes.forEach((gameMode) => {
+        gameGrid.classList.remove(gameMode);
+    })
+
+    gameGrid.classList.add(selectedMode);
 
     resetGame();
 };
@@ -565,6 +575,31 @@ const checkBrowserWidth = () => {
     }
 };
 
+const setCellHeights = () => {
+    const gameGrid = document.getElementById("game-grid");
+
+    let gameGridStyle = window.getComputedStyle(gameGrid);
+    gameGrid.style.height = gameGridStyle.width;
+
+    const gridWidth = gameGridStyle.width.replace("px", "");
+
+    const rows = gameGrid.getElementsByTagName("tr");
+    Array.from(rows).forEach((row) => {
+        row.style.height = `${gridWidth / size}px`;
+    });
+
+    if ((gridWidth / size) < 21.5){
+        gameGrid.classList.add("small");
+        gameGrid.classList.remove("large");
+    } else if ((gridWidth / size) > 28) {
+        gameGrid.classList.remove("small");
+        gameGrid.classList.add("large");
+    } else {
+        gameGrid.classList.remove("small");
+        gameGrid.classList.remove("large");
+    }
+};
+
 let revealedCells = 0;
 let flagsPlaced = 0;
 let bombCount = 40; 
@@ -594,3 +629,5 @@ createGrid();
 
 checkBrowserWidth();
 window.addEventListener("resize", checkBrowserWidth);
+
+window.addEventListener("resize", setCellHeights);
