@@ -566,7 +566,7 @@ const checkUsernameInput = () => {
 const checkBrowserWidth = () => {
     const center = document.getElementsByClassName("center")[0];
     const right = document.getElementsByClassName("right")[0];
-    const main = document.getElementsByClassName("main")[0];
+    const main = document.getElementsByTagName("main")[0];
 
     if (right.offsetTop > center.offsetTop){
         main.classList.add("flexed");
