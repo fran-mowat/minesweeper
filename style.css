@@ -11,7 +11,7 @@ h1{
     text-align: center;
 }
 
-.main{
+main{
     display: flex;
     flex-direction: row;
     gap: 25px;
@@ -20,12 +20,12 @@ h1{
     margin: 0 30px 50px;
 }
 
-.main.flexed{
+main.flexed{
     justify-content: flex-start;
     margin: 0;
 }
 
-.main.flexed .center{
+main.flexed .center{
     margin: auto;
 }
 
@@ -33,7 +33,7 @@ h1{
     min-width: 190px;
 }
 
-.main.flexed .right{
+main.flexed .right{
     margin: 0 30px 50px;
 }
 
