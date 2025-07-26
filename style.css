@@ -277,7 +277,7 @@ input[type="radio"]{
 }
 
 #leaderboard{
-    padding: 10px 10px 35px 40px;
+    padding: 20px 20px 35px 20px;
     margin: 5%;
 }
 
@@ -290,7 +290,12 @@ input[type="radio"]{
 
 #leaderboard p{
     font-size: 20px;
-    margin: 25px 0;
+    margin: 25px 10px;
+}
+
+#leaderboard table{
+    margin: 0 10px;
+    width: auto;
 }
 
 #leaderboard th, #leaderboard td{
