@@ -295,7 +295,8 @@ input[type="radio"]{
 
 #leaderboard table{
     margin: 0 10px;
-    width: auto;
+    width: calc(100% - 20px);
+    table-layout: auto;
 }
 
 #leaderboard th, #leaderboard td{
